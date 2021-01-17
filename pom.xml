@@ -12,7 +12,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <spring.boot.version>2.4.1</spring.boot.version>
         <spring.cloud.version>2020.0.0</spring.cloud.version>
-        <google.cloud.version>16.2.0</google.cloud.version>
+        <google.cloud.version>16.2.1</google.cloud.version>
     </properties>
 
     <dependencyManagement>
@@ -58,11 +58,24 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-oauth2-client</artifactId>
         </dependency>
         <dependency>
             <groupId>com.google.cloud</groupId>
             <artifactId>google-cloud-datastore</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-logging-logback</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
