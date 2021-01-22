@@ -16,12 +16,8 @@ public class PageController {
     @GetMapping("/")
     public String index(OAuth2AuthenticationToken auth, Model model) {
         String email = auth.getPrincipal().getAttribute("email");
-        if (userService.isAuthorized(email)) {
-            model.addAttribute("name", email);
-            return "reader";
-        } else {
-            return "forbidden";
-        }
+        model.addAttribute("name", email);
+        return "reader";
     }
 
 }

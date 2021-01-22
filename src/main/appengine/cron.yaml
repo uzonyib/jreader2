@@ -1,0 +1,6 @@
+cron:
+  - description: "Refresh job"
+    url: /cron/refresh
+    schedule: every 4 hours from 08:00 to 20:00
+    timezone: Europe/Budapest
+
