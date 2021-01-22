@@ -1,8 +1,8 @@
-package jreader2.app.web.config;
+package jreader2.web.config;
 
-import jreader2.app.service.UserService;
-import jreader2.app.web.interceptor.AuthorizationInterceptor;
-import jreader2.app.web.interceptor.CronInterceptor;
+import jreader2.service.UserService;
+import jreader2.web.interceptor.AuthorizationInterceptor;
+import jreader2.web.interceptor.CronInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

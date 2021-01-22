@@ -1,4 +1,4 @@
-package jreader2.app.domain;
+package jreader2.domain;
 
 import lombok.Value;
 

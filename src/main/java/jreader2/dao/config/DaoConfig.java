@@ -1,4 +1,4 @@
-package jreader2.app.dao.config;
+package jreader2.dao.config;
 
 import com.google.cloud.datastore.Datastore;
 import com.google.cloud.datastore.DatastoreOptions;

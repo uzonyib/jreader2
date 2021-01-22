@@ -1,11 +1,11 @@
-package jreader2.app.dao.impl;
+package jreader2.dao.impl;
 
 import com.google.cloud.datastore.Datastore;
 import com.google.cloud.datastore.Entity;
 import com.google.cloud.datastore.Key;
-import jreader2.app.dao.UserDao;
-import jreader2.app.domain.Role;
-import jreader2.app.domain.User;
+import jreader2.dao.UserDao;
+import jreader2.domain.Role;
+import jreader2.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

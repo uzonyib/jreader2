@@ -1,4 +1,4 @@
-package jreader2.app.web.controller.rest;
+package jreader2.web.controller.rest;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;

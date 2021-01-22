@@ -1,6 +1,6 @@
-package jreader2.app.dao;
+package jreader2.dao;
 
-import jreader2.app.domain.User;
+import jreader2.domain.User;
 
 import java.util.Optional;
 

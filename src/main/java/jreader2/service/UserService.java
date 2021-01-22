@@ -1,4 +1,4 @@
-package jreader2.app.service;
+package jreader2.service;
 
 public interface UserService {
 

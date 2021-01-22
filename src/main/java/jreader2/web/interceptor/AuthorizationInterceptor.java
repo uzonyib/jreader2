@@ -1,6 +1,6 @@
-package jreader2.app.web.interceptor;
+package jreader2.web.interceptor;
 
-import jreader2.app.service.UserService;
+import jreader2.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
