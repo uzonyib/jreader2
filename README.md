@@ -6,8 +6,14 @@
 gcloud app deploy
 ```
 
-To view the app, use command:
+To view the app, use this command:
 ```
 gcloud app browse
 ```
 Or navigate to `https://<project-id>.appspot.com`.
+
+## Setup
+
+```bash
+gcloud tasks queues create refresh-all-queue
+```
