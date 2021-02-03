@@ -6,8 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static jreader2.web.service.TaskService.TaskQueue.REFRESH_ALL_FEEDS;
-
 @RestController
 @Slf4j
 @RequiredArgsConstructor
@@ -18,7 +16,7 @@ public class CronController {
     @GetMapping("/cron/refresh")
     public void refresh() {
         log.info("Triggering refresh for all feeds.");
-        taskService.enqueue(REFRESH_ALL_FEEDS);
+        taskService.enqueueToRefreshAll();
     }
 
 }

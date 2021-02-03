@@ -14,6 +14,9 @@ Or navigate to `https://<project-id>.appspot.com`.
 
 ## Setup
 
+### Tasks
+
 ```bash
 gcloud tasks queues create refresh-all-queue
+gcloud tasks queues create refresh-feed-queue
 ```
