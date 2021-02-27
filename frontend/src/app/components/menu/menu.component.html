@@ -1,0 +1,30 @@
+<mat-selection-list [multiple]="false">
+    <mat-list-option routerLink="/reader/home" routerLinkActive="mat-list-single-selected-option">
+        <mat-icon mat-list-icon>home</mat-icon>
+        <span>Home</span>
+    </mat-list-option>
+    <mat-list-option routerLink="/reader/settings" routerLinkActive="mat-list-single-selected-option">
+        <mat-icon mat-list-icon>settings</mat-icon>
+        <span>Settings</span>
+    </mat-list-option>
+    <mat-list-option routerLink="/reader/items" routerLinkActive="mat-list-single-selected-option" [routerLinkActiveOptions]="{exact: true}">
+        <mat-icon mat-list-icon>view_list</mat-icon>
+        <span>All groups</span>
+    </mat-list-option>
+    <div *ngFor="let group of store.groups">
+        <mat-list-option [value]="group" routerLink="/reader/items/groups/{{group.id}}" routerLinkActive="mat-list-single-selected-option"
+            [routerLinkActiveOptions]="{exact: true}">
+            <mat-icon mat-list-icon *ngIf="group.subscriptions?.length && group.collapsed" (click)="group.collapsed = false">expand_more</mat-icon>
+            <mat-icon mat-list-icon *ngIf="group.subscriptions?.length && !group.collapsed" (click)="group.collapsed = true">expand_less</mat-icon>
+            <span>{{group.name}}</span>
+        </mat-list-option>
+        <div *ngIf="!group.collapsed">
+            <mat-list-option *ngFor="let subscription of group.subscriptions" [value]="group"
+                routerLink="/reader/items/groups/{{group.id}}/subscription/{{subscription.id}}" routerLinkActive="mat-list-single-selected-option"
+                [routerLinkActiveOptions]="{exact: true}">
+                <mat-icon mat-list-icon>arrow_right</mat-icon>
+                <span>{{subscription.name}}</span>
+            </mat-list-option>
+        </div>
+    </div>
+</mat-selection-list>

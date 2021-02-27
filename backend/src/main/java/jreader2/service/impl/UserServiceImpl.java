@@ -18,7 +18,7 @@ import static jreader2.domain.Role.USER;
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
-
+    
     @Override
     public boolean isAuthorized(String email) {
         Optional<User> user = userDao.find(email);

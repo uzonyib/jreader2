@@ -16,21 +16,18 @@ import java.util.Optional;
 public class UserDaoImpl implements UserDao {
 
     private final Datastore datastore;
-
-    private Key getKey(String email) {
-        return datastore.newKeyFactory().setKind("User").newKey(email);
-    }
+    private final KeyFactory keyFactory;
 
     @Override
     public void create(User user) {
-        datastore.put(Entity.newBuilder(getKey(user.getEmail()))
+        datastore.put(Entity.newBuilder(keyFactory.createUserKey(user.getEmail()))
                 .set("role", user.getRole().name())
                 .build());
     }
 
     @Override
     public Optional<User> find(String email) {
-        return Optional.ofNullable(datastore.get(getKey(email)))
+        return Optional.ofNullable(datastore.get(keyFactory.createUserKey(email)))
                 .map(e -> new User(e.getKey().getName(), Role.valueOf(e.getString("role"))));
     }
 

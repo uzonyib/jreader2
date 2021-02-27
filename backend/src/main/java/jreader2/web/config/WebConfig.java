@@ -1,8 +1,8 @@
 package jreader2.web.config;
 
 import jreader2.service.UserService;
-import jreader2.web.interceptor.AuthorizationInterceptor;
 import jreader2.web.interceptor.AppengineInterceptor;
+import jreader2.web.interceptor.AuthorizationInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +21,7 @@ public class WebConfig implements WebMvcConfigurer {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf
-                        .ignoringAntMatchers("/tasks/**"))
+                        .ignoringAntMatchers("/tasks/**", "/rest/**"))
                 .authorizeRequests(authorize -> authorize
                         .mvcMatchers("/cron/**").permitAll()
                         .mvcMatchers("/tasks/**").permitAll()
@@ -32,7 +32,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new AuthorizationInterceptor(userService)).addPathPatterns("/reader/**");
+        registry.addInterceptor(new AuthorizationInterceptor(userService)).addPathPatterns("/", "/reader/**", "/rest/**");
         registry.addInterceptor(new AppengineInterceptor("X-Appengine-Cron")).addPathPatterns("/cron/**");
         registry.addInterceptor(new AppengineInterceptor("X-AppEngine-QueueName")).addPathPatterns("/tasks/**");
     }
