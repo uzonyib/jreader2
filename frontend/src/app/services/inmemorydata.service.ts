@@ -9,6 +9,7 @@ export class InMemoryDataService {
     groups: Group[] = [{
         id: 1,
         name: 'Backend',
+        rank: 1,
         subscriptions: [{
             id: 1,
             name: 'Java'
@@ -19,6 +20,7 @@ export class InMemoryDataService {
     }, {
         id: 2,
         name: 'Frontend',
+        rank: 2,
         subscriptions: [{
             id: 3,
             name: 'Angular'

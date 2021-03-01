@@ -17,6 +17,7 @@ export class GroupService {
 
     createGroup(name: string): void {
         const group = new GroupRequest(name);
+        group.rank = this.store.isEmpty()? 1 : this.store.getLastGroup().rank + 1;
         this.http.post<Group>('/rest/groups', group).subscribe(result => this.store.addGroup(result));
     }
 

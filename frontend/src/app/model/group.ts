@@ -4,8 +4,9 @@ export class Group {
 
     id: number;
     name: string;
-    collapsed = true;
+    rank: number;
     subscriptions: Subscription[] = [];
+    collapsed = true;
 
     constructor(name: string) {
         this.name = name;

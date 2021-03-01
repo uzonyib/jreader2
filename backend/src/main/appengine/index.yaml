@@ -1,0 +1,5 @@
+indexes:
+- kind: "Group"
+  ancestor: yes
+  properties:
+  - name: "rank"

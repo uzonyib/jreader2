@@ -11,5 +11,6 @@ public class Group {
 
     private long id;
     private String name;
+    private long rank;
 
 }

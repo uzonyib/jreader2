@@ -23,18 +23,28 @@ gcloud beta emulators datastore start --data-dir=.
 gcloud app deploy
 ```
 
-To view the app, use this command:
+To view the app, use:
 ```
 gcloud app browse
 ```
-Or navigate to `https://<project-id>.appspot.com`.
+or navigate to `https://<project-id>.appspot.com`.
 
 ## Google Cloud setup
 
-### Tasks
+### Deploying cron jobs
+```bash
+gcloud app deploy src/main/appengine/cron.yaml
+```
+
+### Creating tasks
 ```bash
 gcloud tasks queues create refresh-all-queue
 gcloud tasks queues create refresh-feed-queue
+```
+
+### Deploying Datastore indexes
+```bash
+gcloud datastore indexes create src/main/appengine/index.yaml
 ```
 
 ## Frontend
