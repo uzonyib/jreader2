@@ -8,8 +8,4 @@ export class Group {
     subscriptions: Subscription[] = [];
     collapsed = true;
 
-    constructor(name: string) {
-        this.name = name;
-    }
-
 }

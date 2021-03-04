@@ -1,11 +1,9 @@
 export class Subscription {
 
     id: number;
+    groupId: number;
+    url: string;
     name: string;
-
-    constructor(id: number, name: string) {
-        this.id = id;
-        this.name = name;
-    }
+    rank: number;
 
 }

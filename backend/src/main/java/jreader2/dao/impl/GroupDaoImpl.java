@@ -3,7 +3,6 @@ package jreader2.dao.impl;
 import com.google.cloud.datastore.Datastore;
 import com.google.cloud.datastore.Entity;
 import com.google.cloud.datastore.Query;
-import com.google.cloud.datastore.StructuredQuery;
 import jreader2.dao.GroupDao;
 import jreader2.domain.Group;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +12,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import static com.google.cloud.datastore.StructuredQuery.*;
+import static com.google.cloud.datastore.StructuredQuery.OrderBy;
+import static com.google.cloud.datastore.StructuredQuery.PropertyFilter;
 
 @Repository
 @RequiredArgsConstructor
@@ -41,9 +41,7 @@ public class GroupDaoImpl implements GroupDao {
     public List<Group> listAll(String email) {
         Query<Entity> query = Query.newEntityQueryBuilder()
                 .setKind("Group")
-                .setFilter(PropertyFilter.hasAncestor(
-                        keyFactory.createUserKey(email)
-                ))
+                .setFilter(PropertyFilter.hasAncestor(keyFactory.createUserKey(email)))
                 .setOrderBy(OrderBy.asc("rank"))
                 .build();
         Iterator<Entity> entities = datastore.run(query);
@@ -52,8 +50,12 @@ public class GroupDaoImpl implements GroupDao {
                 .collect(Collectors.toList());
     }
 
-    private Group toGroup(Entity g) {
-        return new Group(g.getKey().getId(), g.getString("name"), g.getLong("rank"));
+    private Group toGroup(Entity group) {
+        return Group.builder()
+                .id(group.getKey().getId())
+                .name(group.getString("name"))
+                .rank(group.getLong("rank"))
+                .build();
     }
 
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Group } from '../model/group';
+import { Subscription } from '../model/subscription';
 
 @Injectable({
     providedIn: 'root'
@@ -24,6 +25,10 @@ export class GroupStore {
         this.groups.push(group);
     }
 
+    public addSubscription(groupIndex: number, subscription: Subscription): void {
+        this.groups[groupIndex].subscriptions.push(subscription);
+    }
+
     public getLastGroup(): Group {
         if (this.isEmpty()) {
             return undefined;
@@ -32,6 +37,7 @@ export class GroupStore {
     }
 
     private init(group: Group): void {
+        group.subscriptions = group.subscriptions || [];
         group.collapsed = true;
     }
 

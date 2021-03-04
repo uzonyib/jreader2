@@ -3,3 +3,7 @@ indexes:
   ancestor: yes
   properties:
   - name: "rank"
+- kind: "Subscription"
+  ancestor: yes
+  properties:
+  - name: "rank"

@@ -14,6 +14,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 import { NavBarComponent } from './components/navbar/navbar.component';
 import { MenuComponent } from './components/menu/menu.component';
@@ -22,6 +23,7 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { ItemsComponent } from './components/items/items.component';
 import { CreateGroupComponent } from './components/creategroup/creategroup.component';
 import { MockRestInterceptor } from './interceptors/mockrestinterceptor';
+import { SubscribeComponent } from './components/subscribe/subscribe.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/reader/home', pathMatch: 'full' },
@@ -41,7 +43,8 @@ const routes: Routes = [
         HomeComponent,
         SettingsComponent,
         ItemsComponent,
-        CreateGroupComponent
+        CreateGroupComponent,
+        SubscribeComponent
     ],
     imports: [
         BrowserModule,
@@ -56,7 +59,8 @@ const routes: Routes = [
         MatSidenavModule,
         MatToolbarModule,
         MatFormFieldModule,
-        MatInputModule
+        MatInputModule,
+        MatSelectModule
     ],
     providers: [{ provide: HTTP_INTERCEPTORS, useClass: MockRestInterceptor, multi: true }],
     bootstrap: [AppComponent]

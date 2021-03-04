@@ -4,16 +4,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.extern.jackson.Jacksonized;
 
-import java.util.List;
-
 @Data
 @Jacksonized
 @Builder
-public class Group {
+public class Subscription {
 
     private long id;
+    private long groupId;
+    private String url;
     private String name;
     private long rank;
-    private List<Subscription> subscriptions;
 
 }

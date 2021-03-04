@@ -26,8 +26,11 @@ export class MockRestInterceptor implements HttpInterceptor {
         } else if (req.method === 'POST' && req.url === '/rest/groups') {
             const group = this.dataService.createGroup(req.body);
             return this.createResponse(group);
+        } else if (req.method === 'POST' && req.url.match(/\/rest\/groups\/[0-9]+\/subscriptions/)) {
+            const subscription = this.dataService.subscribe(parseInt(req.url.match(/[0-9]+/)[0], 10), req.body);
+            return this.createResponse(subscription);
         } else {
-            throw new Error('mock handler not implemented');
+            throw new Error('mock handler not implemented for request ' + req.url);
         }
     }
 
