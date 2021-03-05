@@ -1,0 +1,18 @@
+<div class="spacer"></div>
+<div class="title">
+    <a mat-button [matTooltip]="subscription.url" [href]="subscription.url" target="_blank">{{subscription.name}}</a>
+</div>
+<div class="actions">
+    <button mat-mini-fab matTooltip="Rename">
+        <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-mini-fab matTooltip="Delete">
+        <mat-icon>delete</mat-icon>
+    </button>
+    <button mat-mini-fab matTooltip="Move up" [disabled]="first">
+        <mat-icon>arrow_upward</mat-icon>
+    </button>
+    <button mat-mini-fab matTooltip="Move down" [disabled]="last">
+        <mat-icon>arrow_downward</mat-icon>
+    </button>
+</div>

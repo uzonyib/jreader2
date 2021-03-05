@@ -2,3 +2,18 @@
 <mat-divider></mat-divider>
 <app-subscribe></app-subscribe>
 <mat-divider></mat-divider>
+
+<mat-list>
+    <div *ngFor="let group of store.groups; let groupIndex = index">
+        <mat-list-item>
+            <app-group-settings [group]="group" [first]="groupIndex === 0" [last]="groupIndex === store.groups.length - 1"></app-group-settings>
+        </mat-list-item>
+        <mat-list-item *ngFor="let subscription of group.subscriptions; let subscriptionIndex = index">
+            <app-subscription-settings [subscription]="subscription"
+                [first]="subscriptionIndex === 0" [last]="subscriptionIndex === group.subscriptions.length - 1">
+        </app-subscription-settings>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+    </div>
+</mat-list>
+

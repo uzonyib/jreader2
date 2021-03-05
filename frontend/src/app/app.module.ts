@@ -15,6 +15,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { NavBarComponent } from './components/navbar/navbar.component';
 import { MenuComponent } from './components/menu/menu.component';
@@ -24,6 +25,8 @@ import { ItemsComponent } from './components/items/items.component';
 import { CreateGroupComponent } from './components/creategroup/creategroup.component';
 import { MockRestInterceptor } from './interceptors/mockrestinterceptor';
 import { SubscribeComponent } from './components/subscribe/subscribe.component';
+import { SubscriptionSettingsComponent } from './components/subscription-settings/subscription-settings.component';
+import { GroupSettingsComponent } from './components/group-settings/group-settings.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/reader/home', pathMatch: 'full' },
@@ -44,7 +47,9 @@ const routes: Routes = [
         SettingsComponent,
         ItemsComponent,
         CreateGroupComponent,
-        SubscribeComponent
+        SubscribeComponent,
+        SubscriptionSettingsComponent,
+        GroupSettingsComponent
     ],
     imports: [
         BrowserModule,
@@ -60,7 +65,8 @@ const routes: Routes = [
         MatToolbarModule,
         MatFormFieldModule,
         MatInputModule,
-        MatSelectModule
+        MatSelectModule,
+        MatTooltipModule
     ],
     providers: [{ provide: HTTP_INTERCEPTORS, useClass: MockRestInterceptor, multi: true }],
     bootstrap: [AppComponent]

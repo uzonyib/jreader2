@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GroupStore } from 'src/app/store/group.store';
 
 @Component({
     selector: 'app-settings',
@@ -6,8 +7,12 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
+    
+    store: GroupStore;
 
-    constructor() { }
+    constructor(store: GroupStore) {
+        this.store = store;
+    }
 
     ngOnInit(): void { }
 

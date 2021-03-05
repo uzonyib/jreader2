@@ -1,0 +1,5 @@
+app-group-settings, app-subscription-settings {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
