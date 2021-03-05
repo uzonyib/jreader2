@@ -6,7 +6,7 @@
     <button mat-mini-fab matTooltip="Rename">
         <mat-icon>edit</mat-icon>
     </button>
-    <button mat-mini-fab matTooltip="Delete">
+    <button mat-mini-fab matTooltip="Delete" (click)="confirmUnsubscribe()">
         <mat-icon>delete</mat-icon>
     </button>
     <button mat-mini-fab matTooltip="Move up" [disabled]="first">

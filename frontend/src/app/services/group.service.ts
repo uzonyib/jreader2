@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Group as GroupRequest} from '../domain/group';
+import { Group as GroupRequest } from '../domain/group';
 import { Group } from '../model/group';
 import { GroupStore } from '../store/group.store';
-import { Subscription as SubscriptionRequest} from '../domain/subscription';
+import { Subscription as SubscriptionRequest } from '../domain/subscription';
 import { Subscription } from '../model/subscription';
 
 @Injectable({
@@ -29,6 +29,12 @@ export class GroupService {
         subscription.rank = group.subscriptions.length === 0 ? 1 : group.subscriptions[group.subscriptions.length - 1].rank + 1;
         this.http.post<Subscription>(`/rest/groups/${group.id}/subscriptions`, subscription)
             .subscribe(result => this.store.addSubscription(groupIndex, result));
+    }
+
+    unsubscribe(subscription: Subscription): void {
+        console.log('delete');
+        this.http.delete(`/rest/groups/${subscription.groupId}/subscriptions/${subscription.id}`)
+            .subscribe(() => this.store.removeSubscription(subscription));
     }
 
     private reloadStore(): void {

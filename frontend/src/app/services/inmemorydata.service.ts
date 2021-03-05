@@ -48,12 +48,19 @@ export class InMemoryDataService {
     }
 
     subscribe(groupId: number, subscription: Subscription): Subscription {
-        console.log('Backend: create subscription for group ' + groupId);
+        console.log(`Backend: create subscription for group ${groupId}`);
         const group = this.groups.find(g => g.id === groupId);
         const empty = group.subscriptions.length === 0;
         subscription.id = empty ? 1 : group.subscriptions[group.subscriptions.length - 1].id + 1;
         group.subscriptions.push(subscription);
         return subscription;
+    }
+
+    unsubscribe(groupId: number, subscriptionId: number): void {
+        console.log(`Backend: delete subscription ${subscriptionId} from group ${groupId}`);
+        const group = this.groups.find(g => g.id === groupId);
+        const index = group.subscriptions.findIndex(s => s.id === subscriptionId);
+        group.subscriptions.splice(index, 1);
     }
 
 }

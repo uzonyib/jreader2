@@ -20,17 +20,23 @@ export class MockRestInterceptor implements HttpInterceptor {
     }
 
     private mockRequest(req: HttpRequest<any>): Observable<HttpEvent<any>> {
-        console.log('Mocking request: ' + req.method + ' ' + req.url);
+        console.log(`Mocking request: ${req.method} ${req.url}`);
         if (req.method === 'GET' && req.url === '/rest/groups') {
             return this.createResponse(this.dataService.groups);
         } else if (req.method === 'POST' && req.url === '/rest/groups') {
             const group = this.dataService.createGroup(req.body);
             return this.createResponse(group);
         } else if (req.method === 'POST' && req.url.match(/\/rest\/groups\/[0-9]+\/subscriptions/)) {
-            const subscription = this.dataService.subscribe(parseInt(req.url.match(/[0-9]+/)[0], 10), req.body);
+            const subscription = this.dataService.subscribe(parseInt(req.url.match(/[0-9]+/g)[0], 10), req.body);
             return this.createResponse(subscription);
+        } else if (req.method === 'DELETE' && req.url.match(/\/rest\/groups\/[0-9]+\/subscriptions\/[0-9]+/)) {
+            const ids = req.url.match(/[0-9]+/g);
+            const groupId = parseInt(ids[0], 10);
+            const subscriptionId = parseInt(ids[1], 10);
+            this.dataService.unsubscribe(groupId, subscriptionId);
+            return this.createResponse('');
         } else {
-            throw new Error('mock handler not implemented for request ' + req.url);
+            throw new Error(`Mock handler not implemented for request ${req.method} ${req.url}`);
         }
     }
 
