@@ -7,7 +7,7 @@ import { GroupStore } from 'src/app/store/group.store';
     styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
-    
+
     store: GroupStore;
 
     constructor(store: GroupStore) {

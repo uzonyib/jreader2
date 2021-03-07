@@ -17,8 +17,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
-import { NavBarComponent } from './components/navbar/navbar.component';
+import { MenuBarComponent } from './components/toolbars/menu-bar/menu-bar.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { HomeComponent } from './components/home/home.component';
 import { SettingsComponent } from './components/settings/settings.component';
@@ -29,21 +31,23 @@ import { SubscribeComponent } from './components/subscribe/subscribe.component';
 import { SubscriptionSettingsComponent } from './components/subscription-settings/subscription-settings.component';
 import { GroupSettingsComponent } from './components/group-settings/group-settings.component';
 import { ConfirmUnsubscribeComponent } from './components/confirm-unsubscribe/confirm-unsubscribe.component';
+import { SettingsBarComponent } from './components/toolbars/settings-bar/settings-bar.component';
+import { MenuToggleComponent } from './components/toolbars/menu-toggle/menu-toggle.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/reader/home', pathMatch: 'full' },
+    { path: '', redirectTo: '/reader/home?menu=on', pathMatch: 'full' },
     { path: 'reader/home', component: HomeComponent },
     { path: 'reader/settings', component: SettingsComponent },
     { path: 'reader/items', component: ItemsComponent },
     { path: 'reader/items/groups/:groupId', component: ItemsComponent },
     { path: 'reader/items/groups/:groupId/subscription/:subscriptionId', component: ItemsComponent },
-    { path: '**', redirectTo: 'reader/home' }
+    { path: '**', redirectTo: '/reader/home?menu=on' }
 ];
 
 @NgModule({
     declarations: [
         AppComponent,
-        NavBarComponent,
+        MenuBarComponent,
         MenuComponent,
         HomeComponent,
         SettingsComponent,
@@ -52,7 +56,9 @@ const routes: Routes = [
         SubscribeComponent,
         SubscriptionSettingsComponent,
         GroupSettingsComponent,
-        ConfirmUnsubscribeComponent
+        ConfirmUnsubscribeComponent,
+        SettingsBarComponent,
+        MenuToggleComponent
     ],
     imports: [
         BrowserModule,
@@ -70,7 +76,9 @@ const routes: Routes = [
         MatInputModule,
         MatSelectModule,
         MatTooltipModule,
-        MatDialogModule
+        MatDialogModule,
+        MatMenuModule,
+        MatButtonToggleModule
     ],
     providers: [{ provide: HTTP_INTERCEPTORS, useClass: MockRestInterceptor, multi: true }],
     bootstrap: [AppComponent]

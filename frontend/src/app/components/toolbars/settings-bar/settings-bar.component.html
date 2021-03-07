@@ -1,0 +1,14 @@
+<mat-toolbar color="primary">
+    <app-menu-toggle></app-menu-toggle>
+    <button mat-icon-button [matMenuTriggerFor]="settingsMenu">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #settingsMenu="matMenu">
+        <button mat-menu-item>
+            <span>Create group</span>
+        </button>
+        <button mat-menu-item enabled="store.isEmpty()">
+            <span>Subscribe to feed</span>
+        </button>
+    </mat-menu>
+</mat-toolbar>

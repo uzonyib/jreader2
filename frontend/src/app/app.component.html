@@ -1,7 +1,5 @@
-<app-navbar></app-navbar>
-
 <mat-sidenav-container>
-    <mat-sidenav mode="side" opened>
+    <mat-sidenav mode="side" [opened]="menuOpened">
         <app-menu></app-menu>
     </mat-sidenav>
     <mat-sidenav-content>
