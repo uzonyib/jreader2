@@ -4,7 +4,7 @@
     <button mat-mini-fab matTooltip="Rename">
         <mat-icon>edit</mat-icon>
     </button>
-    <button mat-mini-fab matTooltip="Delete" [disabled]="group.subscriptions.length > 0">
+    <button mat-mini-fab matTooltip="Delete" [disabled]="group.subscriptions.length > 0" (click)="confirmGroupDeletion()">
         <mat-icon>delete</mat-icon>
     </button>
     <button mat-mini-fab matTooltip="Move up" [disabled]="first">

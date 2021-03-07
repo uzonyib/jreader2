@@ -23,6 +23,10 @@ export class GroupService {
         this.http.post<Group>('/rest/groups', group).subscribe(result => this.store.addGroup(result));
     }
 
+    deleteGroup(group: Group): void {
+        this.http.delete(`/rest/groups/${group.id}`).subscribe(() => this.store.removeGroup(group));
+    }
+
     subscribe(groupIndex: number, url: string, name: string): void {
         const group = this.store.groups[groupIndex]
         const subscription = new SubscriptionRequest(group.id, url, name);
@@ -32,7 +36,6 @@ export class GroupService {
     }
 
     unsubscribe(subscription: Subscription): void {
-        console.log('delete');
         this.http.delete(`/rest/groups/${subscription.groupId}/subscriptions/${subscription.id}`)
             .subscribe(() => this.store.removeSubscription(subscription));
     }

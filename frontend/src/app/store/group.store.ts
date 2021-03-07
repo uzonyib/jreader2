@@ -25,6 +25,11 @@ export class GroupStore {
         this.groups.push(group);
     }
 
+    public removeGroup(group: Group): void {
+        const index = this.groups.findIndex(g => g.id === group.id);
+        this.groups.splice(index, 1);
+    }
+
     public addSubscription(groupIndex: number, subscription: Subscription): void {
         this.groups[groupIndex].subscriptions.push(subscription);
     }

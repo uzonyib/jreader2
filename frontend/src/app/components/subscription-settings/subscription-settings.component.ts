@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Subscription } from 'src/app/model/subscription';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmUnsubscribeComponent } from '../confirm-unsubscribe/confirm-unsubscribe.component';
+import { ConfirmUnsubscribeComponent } from '../dialogs/confirm-unsubscribe/confirm-unsubscribe.component';
 import { GroupService } from 'src/app/services/group.service';
 
 @Component({

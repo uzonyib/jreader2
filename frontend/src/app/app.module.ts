@@ -30,9 +30,10 @@ import { MockRestInterceptor } from './interceptors/mockrestinterceptor';
 import { SubscribeComponent } from './components/subscribe/subscribe.component';
 import { SubscriptionSettingsComponent } from './components/subscription-settings/subscription-settings.component';
 import { GroupSettingsComponent } from './components/group-settings/group-settings.component';
-import { ConfirmUnsubscribeComponent } from './components/confirm-unsubscribe/confirm-unsubscribe.component';
+import { ConfirmUnsubscribeComponent } from './components/dialogs/confirm-unsubscribe/confirm-unsubscribe.component';
 import { SettingsBarComponent } from './components/toolbars/settings-bar/settings-bar.component';
 import { MenuToggleComponent } from './components/toolbars/menu-toggle/menu-toggle.component';
+import { ConfirmGroupDeletionComponent } from './components/dialogs/confirm-group-deletion/confirm-group-deletion.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/reader/home?menu=on', pathMatch: 'full' },
@@ -58,7 +59,8 @@ const routes: Routes = [
         GroupSettingsComponent,
         ConfirmUnsubscribeComponent,
         SettingsBarComponent,
-        MenuToggleComponent
+        MenuToggleComponent,
+        ConfirmGroupDeletionComponent
     ],
     imports: [
         BrowserModule,
