@@ -1,12 +1,8 @@
 <app-menu-bar></app-menu-bar>
 <mat-selection-list [multiple]="false">
-    <mat-list-option routerLink="/reader/home" queryParamsHandling="preserve" routerLinkActive="mat-list-single-selected-option">
+    <mat-list-option routerLink="/reader/overview" queryParamsHandling="preserve" routerLinkActive="mat-list-single-selected-option">
         <mat-icon mat-list-icon>home</mat-icon>
-        <span>Home</span>
-    </mat-list-option>
-    <mat-list-option routerLink="/reader/settings" queryParamsHandling="preserve" routerLinkActive="mat-list-single-selected-option">
-        <mat-icon mat-list-icon>settings</mat-icon>
-        <span>Settings</span>
+        <span>Overview</span>
     </mat-list-option>
     <mat-list-option routerLink="/reader/items" queryParamsHandling="preserve" routerLinkActive="mat-list-single-selected-option" [routerLinkActiveOptions]="{exact: true}">
         <mat-icon mat-list-icon>view_list</mat-icon>

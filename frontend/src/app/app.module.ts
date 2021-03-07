@@ -20,47 +20,44 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
-import { MenuBarComponent } from './components/toolbars/menu-bar/menu-bar.component';
 import { MenuComponent } from './components/menu/menu.component';
-import { HomeComponent } from './components/home/home.component';
-import { SettingsComponent } from './components/settings/settings.component';
+import { OverviewComponent } from './components/overview/overview.component';
+import { GroupSettingsComponent } from './components/overview/group-settings/group-settings.component';
+import { SubscriptionSettingsComponent } from './components/overview/subscription-settings/subscription-settings.component';
 import { ItemsComponent } from './components/items/items.component';
-import { CreateGroupComponent } from './components/creategroup/creategroup.component';
-import { MockRestInterceptor } from './interceptors/mockrestinterceptor';
-import { SubscribeComponent } from './components/subscribe/subscribe.component';
-import { SubscriptionSettingsComponent } from './components/subscription-settings/subscription-settings.component';
-import { GroupSettingsComponent } from './components/group-settings/group-settings.component';
-import { ConfirmUnsubscribeComponent } from './components/dialogs/confirm-unsubscribe/confirm-unsubscribe.component';
+import { MenuBarComponent } from './components/toolbars/menu-bar/menu-bar.component';
 import { SettingsBarComponent } from './components/toolbars/settings-bar/settings-bar.component';
-import { MenuToggleComponent } from './components/toolbars/menu-toggle/menu-toggle.component';
+import { CreateGroupComponent } from './components/dialogs/create-group/create-group.component';
+import { SubscribeComponent } from './components/dialogs/subscribe/subscribe.component';
 import { ConfirmGroupDeletionComponent } from './components/dialogs/confirm-group-deletion/confirm-group-deletion.component';
+import { ConfirmUnsubscribeComponent } from './components/dialogs/confirm-unsubscribe/confirm-unsubscribe.component';
+import { MenuToggleComponent } from './components/toolbars/menu-toggle/menu-toggle.component';
+import { MockRestInterceptor } from './interceptors/mockrestinterceptor';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/reader/home?menu=on', pathMatch: 'full' },
-    { path: 'reader/home', component: HomeComponent },
-    { path: 'reader/settings', component: SettingsComponent },
+    { path: '', redirectTo: '/reader/overview?menu=on', pathMatch: 'full' },
+    { path: 'reader/overview', component: OverviewComponent },
     { path: 'reader/items', component: ItemsComponent },
     { path: 'reader/items/groups/:groupId', component: ItemsComponent },
     { path: 'reader/items/groups/:groupId/subscription/:subscriptionId', component: ItemsComponent },
-    { path: '**', redirectTo: '/reader/home?menu=on' }
+    { path: '**', redirectTo: '/reader/overview?menu=on' }
 ];
 
 @NgModule({
     declarations: [
         AppComponent,
-        MenuBarComponent,
         MenuComponent,
-        HomeComponent,
-        SettingsComponent,
+        OverviewComponent,
+        GroupSettingsComponent,
+        SubscriptionSettingsComponent,
         ItemsComponent,
+        MenuBarComponent,
+        SettingsBarComponent,
         CreateGroupComponent,
         SubscribeComponent,
-        SubscriptionSettingsComponent,
-        GroupSettingsComponent,
+        ConfirmGroupDeletionComponent,
         ConfirmUnsubscribeComponent,
-        SettingsBarComponent,
-        MenuToggleComponent,
-        ConfirmGroupDeletionComponent
+        MenuToggleComponent
     ],
     imports: [
         BrowserModule,

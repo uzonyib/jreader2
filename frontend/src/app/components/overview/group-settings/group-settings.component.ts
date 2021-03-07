@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Group } from 'src/app/model/group';
-import { GroupService } from 'src/app/services/group.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmGroupDeletionComponent } from '../dialogs/confirm-group-deletion/confirm-group-deletion.component';
+import { ConfirmGroupDeletionComponent } from '../../dialogs/confirm-group-deletion/confirm-group-deletion.component';
 
 @Component({
     selector: 'app-group-settings',
@@ -18,19 +17,13 @@ export class GroupSettingsComponent implements OnInit {
     @Input()
     last: boolean;
 
-    constructor(public unsubscribeDialog: MatDialog, private service: GroupService) { }
+    constructor(public unsubscribeDialog: MatDialog) { }
 
     ngOnInit(): void { }
 
     confirmGroupDeletion(): void {
-        const dialogRef = this.unsubscribeDialog.open(ConfirmGroupDeletionComponent, {
+        this.unsubscribeDialog.open(ConfirmGroupDeletionComponent, {
             data: { group: this.group }
-        });
-
-        dialogRef.afterClosed().subscribe(confirmed => {
-            if (confirmed) {
-                this.service.deleteGroup(this.group);
-            }
         });
     }
 

@@ -29,11 +29,6 @@ export class SubscribeComponent implements OnInit {
 
     submit(): void {
         this.service.subscribe(this.form.value.groupIndex, this.form.value.url, this.form.value.name);
-        this.form.setValue({
-            groupIndex: '',
-            url: '',
-            name: ''
-        });
     }
 
 }

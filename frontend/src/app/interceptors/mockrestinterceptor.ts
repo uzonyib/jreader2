@@ -28,15 +28,15 @@ export class MockRestInterceptor implements HttpInterceptor {
             // create group
             const group = this.dataService.createGroup(req.body);
             return this.createResponse(group);
-        } else if (req.method === 'DELETE' && req.url.match(/\/rest\/groups\/[0-9]+/)) {
+        } else if (req.method === 'DELETE' && req.url.match(/^\/rest\/groups\/[0-9]+$/)) {
             // delete group
             this.dataService.deleteGroup(parseInt(req.url.match(/[0-9]+/g)[0], 10));
             return this.createResponse('');
-        } else if (req.method === 'POST' && req.url.match(/\/rest\/groups\/[0-9]+\/subscriptions/)) {
+        } else if (req.method === 'POST' && req.url.match(/^\/rest\/groups\/[0-9]+\/subscriptions$/)) {
             // create subscription
             const subscription = this.dataService.subscribe(parseInt(req.url.match(/[0-9]+/g)[0], 10), req.body);
             return this.createResponse(subscription);
-        } else if (req.method === 'DELETE' && req.url.match(/\/rest\/groups\/[0-9]+\/subscriptions\/[0-9]+/)) {
+        } else if (req.method === 'DELETE' && req.url.match(/^\/rest\/groups\/[0-9]+\/subscriptions\/[0-9]+$/)) {
             // delete subscription
             const ids = req.url.match(/[0-9]+/g);
             const groupId = parseInt(ids[0], 10);

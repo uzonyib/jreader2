@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { GroupStore } from 'src/app/store/group.store';
 
 @Component({
-    selector: 'app-settings',
-    templateUrl: './settings.component.html',
-    styleUrls: ['./settings.component.css']
+    selector: 'app-overview',
+    templateUrl: './overview.component.html',
+    styleUrls: ['./overview.component.css']
 })
-export class SettingsComponent implements OnInit {
+export class OverviewComponent implements OnInit {
 
     store: GroupStore;
 

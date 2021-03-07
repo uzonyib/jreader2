@@ -4,10 +4,10 @@
         <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #settingsMenu="matMenu">
-        <button mat-menu-item>
+        <button mat-menu-item (click)="openGroupCreationDialog()">
             <span>Create group</span>
         </button>
-        <button mat-menu-item [disabled]="store.groups.length === 0">
+        <button mat-menu-item (click)="openSubscribeDialog()" [disabled]="store.groups.length === 0">
             <span>Subscribe to feed</span>
         </button>
     </mat-menu>
