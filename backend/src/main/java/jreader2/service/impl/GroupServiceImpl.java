@@ -6,12 +6,14 @@ import jreader2.domain.Group;
 import jreader2.domain.Subscription;
 import jreader2.service.GroupService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class GroupServiceImpl implements GroupService {
 
@@ -22,6 +24,15 @@ public class GroupServiceImpl implements GroupService {
     public Group create(String email, Group group) {
         long id = groupDao.create(email, group);
         return groupDao.find(email, id).get();
+    }
+
+    @Override
+    public void delete(String email, long groupId) {
+        if (!subscriptionDao.listAll(email, groupId).isEmpty()) {
+            log.warn("User {} could not delete group {} that has subscriptions", email, groupId);
+            throw new IllegalArgumentException("Cannot delete group with subscriptions.");
+        }
+        groupDao.delete(email, groupId);
     }
 
     @Override

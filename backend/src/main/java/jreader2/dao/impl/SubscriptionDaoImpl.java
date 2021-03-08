@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 @Repository
@@ -32,6 +33,11 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
     }
 
     @Override
+    public void delete(String email, long groupId, long id) {
+        datastore.delete(keyFactory.createSubscriptionKey(email, groupId, id));
+    }
+
+    @Override
     public Optional<Subscription> find(String email, long groupId, long id) {
         return Optional.ofNullable(datastore.get(keyFactory.createSubscriptionKey(email, groupId, id)))
                 .map(this::toSubscription);
@@ -45,9 +51,27 @@ public class SubscriptionDaoImpl implements SubscriptionDao {
                 .setOrderBy(StructuredQuery.OrderBy.asc("rank"))
                 .build();
         Iterator<Entity> entities = datastore.run(query);
-        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(entities, Spliterator.ORDERED), false)
+        return toStream(entities)
                 .map(this::toSubscription)
                 .collect(Collectors.toList());
+    }
+
+
+    @Override
+    public List<Subscription> listAll(String email, long groupId) {
+        Query<Entity> query = Query.newEntityQueryBuilder()
+                .setKind("Subscription")
+                .setFilter(PropertyFilter.hasAncestor(keyFactory.createGroupKey(email, groupId)))
+                .setOrderBy(StructuredQuery.OrderBy.asc("rank"))
+                .build();
+        Iterator<Entity> entities = datastore.run(query);
+        return toStream(entities)
+                .map(this::toSubscription)
+                .collect(Collectors.toList());
+    }
+
+    private Stream<Entity> toStream(Iterator<Entity> entities) {
+        return StreamSupport.stream(Spliterators.spliteratorUnknownSize(entities, Spliterator.ORDERED), false);
     }
 
     private Subscription toSubscription(Entity subscription) {

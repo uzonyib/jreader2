@@ -9,6 +9,8 @@ public interface GroupDao {
 
     long create(String email, Group group);
 
+    void delete(String email, long id);
+
     Optional<Group> find(String email, long id);
 
     List<Group> listAll(String email);

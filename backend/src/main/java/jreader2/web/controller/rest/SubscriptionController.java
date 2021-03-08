@@ -22,4 +22,9 @@ public class SubscriptionController {
         return subscriptionService.subscribe(auth.getPrincipal().getAttribute("email"), groupId, subscription);
     }
 
+    @DeleteMapping("/{subscriptionId}")
+    public void delete(OAuth2AuthenticationToken auth, @PathVariable long groupId, @PathVariable long subscriptionId) {
+        subscriptionService.unsubscribe(auth.getPrincipal().getAttribute("email"), groupId, subscriptionId);
+    }
+
 }

@@ -8,6 +8,8 @@ public interface GroupService {
 
     Group create(String email, Group group);
 
+    void delete(String email, long groupId);
+
     List<Group> list(String email);
 
 }

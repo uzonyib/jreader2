@@ -20,6 +20,11 @@ public class GroupController {
         return groupService.create(auth.getPrincipal().getAttribute("email"), group);
     }
 
+    @DeleteMapping("/{groupId}")
+    public void delete(OAuth2AuthenticationToken auth, @PathVariable long groupId) {
+        groupService.delete(auth.getPrincipal().getAttribute("email"), groupId);
+    }
+
     @GetMapping
     public List<Group> list(OAuth2AuthenticationToken auth) {
         return groupService.list(auth.getPrincipal().getAttribute("email"));

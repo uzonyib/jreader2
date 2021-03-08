@@ -18,4 +18,9 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         return subscriptionDao.find(email, groupId, subscriptionId).get();
     }
 
+    @Override
+    public void unsubscribe(String email, long groupId, long subscriptionId) {
+        subscriptionDao.delete(email, groupId, subscriptionId);
+    }
+
 }

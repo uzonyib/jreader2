@@ -32,6 +32,11 @@ public class GroupDaoImpl implements GroupDao {
     }
 
     @Override
+    public void delete(String email, long id) {
+        datastore.delete(keyFactory.createGroupKey(email, id));
+    }
+
+    @Override
     public Optional<Group> find(String email, long id) {
         return Optional.ofNullable(datastore.get(keyFactory.createGroupKey(email, id)))
                 .map(this::toGroup);
