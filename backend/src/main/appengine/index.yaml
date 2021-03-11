@@ -7,3 +7,7 @@ indexes:
   ancestor: yes
   properties:
   - name: "rank"
+- kind: "Post"
+  ancestor: yes
+  properties:
+  - name: "publishDate"

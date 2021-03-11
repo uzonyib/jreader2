@@ -9,6 +9,8 @@ public interface SubscriptionDao {
 
     long create(String email, long groupId, Subscription subscription);
 
+    void update(Subscription subscription);
+
     void delete(String email, long groupId, long id);
 
     Optional<Subscription> find(String email, long groupId, long id);
@@ -17,4 +19,5 @@ public interface SubscriptionDao {
 
     List<Subscription> listAll(String email, long groupId);
 
+    List<Subscription> listForUrl(String url);
 }

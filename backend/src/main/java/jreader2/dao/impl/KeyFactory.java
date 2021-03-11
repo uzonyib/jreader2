@@ -1,9 +1,8 @@
 package jreader2.dao.impl;
 
-import com.google.cloud.datastore.Datastore;
-import com.google.cloud.datastore.IncompleteKey;
-import com.google.cloud.datastore.Key;
-import com.google.cloud.datastore.PathElement;
+import com.google.cloud.datastore.*;
+import jreader2.domain.Post;
+import jreader2.domain.Subscription;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -50,6 +49,15 @@ class KeyFactory {
                 .newKey(id);
     }
 
+    public Key createPostKey(Subscription subscription, String uri) {
+        return datastore.newKeyFactory()
+                .addAncestors(createUserAncestor(subscription.getOwnerEmail()),
+                        createGroupAncestor(subscription.getGroupId()),
+                        createSubscriptionAncestor(subscription.getId()))
+                .setKind("Post")
+                .newKey(uri);
+    }
+
     public Key createFeedKey(String url) {
         return datastore.newKeyFactory().setKind(FEED_KIND).newKey(url);
     }
@@ -60,6 +68,10 @@ class KeyFactory {
 
     private PathElement createGroupAncestor(long groupId) {
         return PathElement.of(GROUP_KIND, groupId);
+    }
+
+    private PathElement createSubscriptionAncestor(long subscriptionId) {
+        return PathElement.of(SUBSCRIPTION_KIND, subscriptionId);
     }
 
 }
