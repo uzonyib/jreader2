@@ -11,3 +11,8 @@ indexes:
   ancestor: yes
   properties:
   - name: "publishDate"
+- kind: "Post"
+  ancestor: yes
+  properties:
+  - name: "publishDate"
+    direction: desc

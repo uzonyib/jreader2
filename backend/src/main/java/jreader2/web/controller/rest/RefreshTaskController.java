@@ -3,12 +3,11 @@ package jreader2.web.controller.rest;
 import jreader2.domain.FeedEntry;
 import jreader2.service.CronService;
 import jreader2.service.RssService;
-import jreader2.service.impl.SubscriptionRefreshService;
+import jreader2.service.SubscriptionRefreshService;
 import jreader2.web.model.RefreshRequest;
 import jreader2.web.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +16,7 @@ import reactor.core.publisher.Flux;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-public class TaskController {
+public class RefreshTaskController {
 
     private final TaskService taskService;
     private final CronService cronService;

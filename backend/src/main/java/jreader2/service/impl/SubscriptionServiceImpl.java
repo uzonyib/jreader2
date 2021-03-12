@@ -6,6 +6,8 @@ import jreader2.service.SubscriptionService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class SubscriptionServiceImpl implements SubscriptionService {
@@ -21,6 +23,11 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     @Override
     public void unsubscribe(String email, long groupId, long subscriptionId) {
         subscriptionDao.delete(email, groupId, subscriptionId);
+    }
+
+    @Override
+    public List<Subscription> list(String email) {
+        return subscriptionDao.listAll(email);
     }
 
 }

@@ -40,6 +40,8 @@ gcloud app deploy src/main/appengine/cron.yaml
 ```bash
 gcloud tasks queues create refresh-all-queue
 gcloud tasks queues create refresh-feed-queue
+gcloud tasks queues create cleanup-posts-queue
+gcloud tasks queues create cleanup-posts-for-user-queue
 ```
 
 ### Deploying Datastore indexes

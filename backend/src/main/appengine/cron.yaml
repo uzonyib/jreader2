@@ -3,4 +3,7 @@ cron:
     url: /cron/refresh
     schedule: every 4 hours from 08:00 to 20:00
     timezone: Europe/Budapest
-
+  - description: "Post cleanup job"
+    url: /cron/cleanup/posts
+    schedule: every day 20:05
+    timezone: Europe/Budapest

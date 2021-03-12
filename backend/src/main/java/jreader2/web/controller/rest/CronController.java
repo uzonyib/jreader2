@@ -19,4 +19,10 @@ public class CronController {
         taskService.enqueueToRefreshAll();
     }
 
+    @GetMapping("/cron/cleanup/posts")
+    public void cleanupPosts() {
+        log.info("Triggering cleanup of posts for all users.");
+        taskService.enqueueToCleanupPosts();
+    }
+
 }

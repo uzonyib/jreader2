@@ -1,5 +1,6 @@
 package jreader2.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
@@ -9,6 +10,10 @@ import java.time.ZonedDateTime;
 @Builder
 public class Post {
 
+    @JsonIgnore
+    private String ownerEmail;
+    private long groupId;
+    private long subscriptionId;
     private String uri;
     private String url;
     private String title;

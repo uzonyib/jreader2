@@ -58,6 +58,15 @@ class KeyFactory {
                 .newKey(uri);
     }
 
+    public Key createPostKey(String email, long groupId, long subscriptionId, String uri) {
+        return datastore.newKeyFactory()
+                .addAncestors(createUserAncestor(email),
+                        createGroupAncestor(groupId),
+                        createSubscriptionAncestor(subscriptionId))
+                .setKind("Post")
+                .newKey(uri);
+    }
+
     public Key createFeedKey(String url) {
         return datastore.newKeyFactory().setKind(FEED_KIND).newKey(url);
     }

@@ -5,6 +5,7 @@ import jreader2.dao.SubscriptionDao;
 import jreader2.domain.FeedEntry;
 import jreader2.domain.Post;
 import jreader2.domain.Subscription;
+import jreader2.service.SubscriptionRefreshService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.ConversionService;

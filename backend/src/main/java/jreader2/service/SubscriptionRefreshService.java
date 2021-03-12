@@ -1,4 +1,4 @@
-package jreader2.service.impl;
+package jreader2.service;
 
 import jreader2.domain.FeedEntry;
 import reactor.core.publisher.Flux;
