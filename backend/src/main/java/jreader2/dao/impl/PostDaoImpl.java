@@ -4,6 +4,7 @@ import com.google.cloud.Timestamp;
 import com.google.cloud.datastore.*;
 import jreader2.dao.PostDao;
 import jreader2.domain.Post;
+import jreader2.domain.PostFilter;
 import jreader2.domain.Subscription;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.ConversionService;
@@ -50,11 +51,11 @@ public class PostDaoImpl implements PostDao {
     }
 
     @Override
-    public List<Post> listAll(String email) {
-        Query<Entity> query = Query.newEntityQueryBuilder()
-                .setKind("Post")
-                .setFilter(StructuredQuery.PropertyFilter.hasAncestor(keyFactory.createUserKey(email)))
+    public List<Post> listAll(PostFilter filter) {
+        Query query = Query.newEntityQueryBuilder().setKind("Post")
+                .setFilter(getAncestorFilter(filter))
                 .setOrderBy(StructuredQuery.OrderBy.asc("publishDate"))
+                .setLimit(filter.getLimit())
                 .build();
         Iterator<Entity> entities = datastore.run(query);
         return toStream(entities)
@@ -95,6 +96,18 @@ public class PostDaoImpl implements PostDao {
                 .read(entity.getBoolean("read"))
                 .bookmarked(entity.getBoolean("bookmarked"))
                 .build();
+    }
+
+    private StructuredQuery.PropertyFilter getAncestorFilter(PostFilter filter) {
+        if (filter.getSubscriptionId().isPresent()) {
+            return StructuredQuery.PropertyFilter.hasAncestor(keyFactory.createSubscriptionKey(
+                    filter.getEmail(), filter.getGroupId().get(), filter.getSubscriptionId().get()));
+        }
+        if (filter.getGroupId().isPresent()) {
+            return StructuredQuery.PropertyFilter.hasAncestor(keyFactory.createGroupKey(
+                    filter.getEmail(), filter.getGroupId().get()));
+        }
+        return StructuredQuery.PropertyFilter.hasAncestor(keyFactory.createUserKey(filter.getEmail()));
     }
 
 }
