@@ -1,0 +1,15 @@
+<app-reader-bar></app-reader-bar>
+
+<mat-accordion hideToggle displayMode="flat">
+    <mat-expansion-panel *ngFor="let post of store.posts">
+        <mat-expansion-panel-header>
+            <mat-panel-title class="post-header-subscription">{{post.subscriptionName}}</mat-panel-title>
+            <mat-panel-description class="post-header-main">
+                <div>{{post.title}}</div>
+                <div>{{post.publishDate | date: 'medium'}}</div>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div><a href="{{post.url}}" target="_blank">{{post.title}}</a> by {{post.author}}</div>
+        <div [innerHTML]="post.description"></div>
+    </mat-expansion-panel>
+</mat-accordion>

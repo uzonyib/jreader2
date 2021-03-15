@@ -19,12 +19,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { MenuComponent } from './components/menu/menu.component';
 import { OverviewComponent } from './components/overview/overview.component';
 import { GroupSettingsComponent } from './components/overview/group-settings/group-settings.component';
 import { SubscriptionSettingsComponent } from './components/overview/subscription-settings/subscription-settings.component';
-import { ItemsComponent } from './components/items/items.component';
+import { PostsComponent } from './components/posts/posts.component';
 import { MenuBarComponent } from './components/toolbars/menu-bar/menu-bar.component';
 import { SettingsBarComponent } from './components/toolbars/settings-bar/settings-bar.component';
 import { CreateGroupComponent } from './components/dialogs/create-group/create-group.component';
@@ -33,13 +34,14 @@ import { ConfirmGroupDeletionComponent } from './components/dialogs/confirm-grou
 import { ConfirmUnsubscribeComponent } from './components/dialogs/confirm-unsubscribe/confirm-unsubscribe.component';
 import { MenuToggleComponent } from './components/toolbars/menu-toggle/menu-toggle.component';
 import { MockRestInterceptor } from './interceptors/mockrestinterceptor';
+import { ReaderBarComponent } from './components/toolbars/reader-bar/reader-bar.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/reader/overview?menu=on', pathMatch: 'full' },
     { path: 'reader/overview', component: OverviewComponent },
-    { path: 'reader/items', component: ItemsComponent },
-    { path: 'reader/items/groups/:groupId', component: ItemsComponent },
-    { path: 'reader/items/groups/:groupId/subscription/:subscriptionId', component: ItemsComponent },
+    { path: 'reader/posts', component: PostsComponent },
+    { path: 'reader/posts/groups/:groupId', component: PostsComponent },
+    { path: 'reader/posts/groups/:groupId/subscription/:subscriptionId', component: PostsComponent },
     { path: '**', redirectTo: '/reader/overview?menu=on' }
 ];
 
@@ -50,14 +52,15 @@ const routes: Routes = [
         OverviewComponent,
         GroupSettingsComponent,
         SubscriptionSettingsComponent,
-        ItemsComponent,
+        PostsComponent,
         MenuBarComponent,
         SettingsBarComponent,
         CreateGroupComponent,
         SubscribeComponent,
         ConfirmGroupDeletionComponent,
         ConfirmUnsubscribeComponent,
-        MenuToggleComponent
+        MenuToggleComponent,
+        ReaderBarComponent
     ],
     imports: [
         BrowserModule,
@@ -77,7 +80,8 @@ const routes: Routes = [
         MatTooltipModule,
         MatDialogModule,
         MatMenuModule,
-        MatButtonToggleModule
+        MatButtonToggleModule,
+        MatExpansionModule
     ],
     providers: [{ provide: HTTP_INTERCEPTORS, useClass: MockRestInterceptor, multi: true }],
     bootstrap: [AppComponent]

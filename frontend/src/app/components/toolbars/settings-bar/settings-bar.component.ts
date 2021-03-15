@@ -17,13 +17,13 @@ export class SettingsBarComponent implements OnInit {
 
     openGroupCreationDialog(): void {
         this.groupCreationDialog.open(CreateGroupComponent, {
-            data: { }
+            data: {}
         });
     }
 
     openSubscribeDialog(): void {
         this.subscribeDialog.open(SubscribeComponent, {
-            data: { }
+            data: {}
         });
     }
 
