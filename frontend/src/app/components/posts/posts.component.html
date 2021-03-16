@@ -9,7 +9,7 @@
                 <div>{{post.publishDate | date: 'medium'}}</div>
             </mat-panel-description>
         </mat-expansion-panel-header>
-        <div><a href="{{post.url}}" target="_blank">{{post.title}}</a> by {{post.author}}</div>
+        <div><a [href]="post.url" target="_blank">{{post.title}}</a> by {{post.author}}</div>
         <div [innerHTML]="post.description"></div>
     </mat-expansion-panel>
 </mat-accordion>

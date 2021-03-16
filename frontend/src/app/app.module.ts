@@ -20,6 +20,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatBadgeModule } from '@angular/material/badge';
 
 import { MenuComponent } from './components/menu/menu.component';
 import { OverviewComponent } from './components/overview/overview.component';
@@ -81,7 +82,8 @@ const routes: Routes = [
         MatDialogModule,
         MatMenuModule,
         MatButtonToggleModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatBadgeModule
     ],
     providers: [{ provide: HTTP_INTERCEPTORS, useClass: MockRestInterceptor, multi: true }],
     bootstrap: [AppComponent]

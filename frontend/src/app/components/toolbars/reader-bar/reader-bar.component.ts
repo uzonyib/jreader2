@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PostStore } from 'src/app/store/post.store';
 
 @Component({
     selector: 'app-reader-bar',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReaderBarComponent implements OnInit {
 
-    constructor() { }
+    store: PostStore;
+
+    constructor(store: PostStore) {
+        this.store = store;
+    }
 
     ngOnInit(): void { }
 
