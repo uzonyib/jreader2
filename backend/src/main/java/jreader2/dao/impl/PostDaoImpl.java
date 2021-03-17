@@ -34,10 +34,10 @@ public class PostDaoImpl implements PostDao {
                 .set("publishDate", conversionService.convert(post.getPublishDate(), Timestamp.class))
                 .set("read", post.isRead())
                 .set("bookmarked", post.isBookmarked());
-        if (nonNull(post.getDescription())) {
+        if (nonNull(post.getDescription()) && !post.getDescription().isBlank()) {
             builder.set("description", post.getDescription());
         }
-        if (nonNull(post.getAuthor())) {
+        if (nonNull(post.getAuthor()) && !post.getAuthor().isBlank()) {
             builder.set("author", post.getAuthor());
         }
         datastore.put(builder.build());
@@ -90,8 +90,8 @@ public class PostDaoImpl implements PostDao {
                 .uri(entity.getKey().getName())
                 .url(entity.getString("url"))
                 .title(entity.getString("title"))
-                .description(entity.getString("description"))
-                .author(entity.getString("author"))
+                .description(entity.contains("description") ? entity.getString("description") : null)
+                .author(entity.contains("author") ? entity.getString("author") : null)
                 .publishDate(conversionService.convert(entity.getTimestamp("publishDate"), ZonedDateTime.class))
                 .read(entity.getBoolean("read"))
                 .bookmarked(entity.getBoolean("bookmarked"))
