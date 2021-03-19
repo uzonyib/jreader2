@@ -116,16 +116,40 @@ export class InMemoryDataService {
         group.subscriptions.splice(index, 1);
     }
 
-    getPosts(): Post[] {
-        return this.posts;
+    getPosts(sort: string): Post[] {
+        const posts = this.posts.sort(this.comparePosts);
+        if (sort === 'desc') {
+            return posts.reverse();
+        }
+        return posts;
     }
 
-    getPostsForGroup(groupId: number): Post[] {
-        return this.posts.filter(post => post.groupId === groupId);
+    getPostsForGroup(groupId: number, sort: string): Post[] {
+        const posts = this.posts.filter(post => post.groupId === groupId).sort(this.comparePosts);
+        if (sort === 'desc') {
+            return posts.reverse();
+        }
+        return posts;
     }
 
-    getPostsForSubscription(groupId: number, subscriptionId: number): Post[] {
-        return this.posts.filter(post => post.groupId === groupId && post.subscriptionId === subscriptionId);
+    getPostsForSubscription(groupId: number, subscriptionId: number, sort: string): Post[] {
+        const posts = this.posts.filter(post => post.groupId === groupId && post.subscriptionId === subscriptionId).sort(this.comparePosts);
+        if (sort === 'desc') {
+            return posts.reverse();
+        }
+        return posts;
+    }
+
+    private comparePosts(p1: Post, p2: Post): number {
+        const d1 = new Date(p1.publishDate);
+        const d2 = new Date(p2.publishDate);
+        if (d1 > d2) {
+            return 1;
+        }
+        if (d1 < d2) {
+            return -1;
+        }
+        return 0;
     }
 
 }

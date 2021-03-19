@@ -1,0 +1,8 @@
+<mat-button-toggle-group [(ngModel)]="sort" [value]="sort" (change)="toggle()">
+    <mat-button-toggle value="asc" aria-label="Ascending">
+        <mat-icon>keyboard_arrow_down</mat-icon>
+    </mat-button-toggle>
+    <mat-button-toggle value="desc" aria-label="Descending">
+        <mat-icon>keyboard_arrow_up</mat-icon>
+    </mat-button-toggle>
+</mat-button-toggle-group>

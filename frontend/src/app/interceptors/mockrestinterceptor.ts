@@ -43,19 +43,22 @@ export class MockRestInterceptor implements HttpInterceptor {
             const subscriptionId = parseInt(ids[1], 10);
             this.dataService.unsubscribe(groupId, subscriptionId);
             return this.createResponse('');
-        } else if (req.method === 'GET' && req.url === '/rest/posts') {
+        } else if (req.method === 'GET' && req.url.match(/^\/rest\/posts(\?.*)?$/)) {
             // get posts
-            return this.createResponse(this.dataService.getPosts());
-        } else if (req.method === 'GET' && req.url.match(/^\/rest\/groups\/[0-9]+\/posts$/)) {
+            const sort = req.url.match(/sort=([^&]*)/)[1];
+            return this.createResponse(this.dataService.getPosts(sort));
+        } else if (req.method === 'GET' && req.url.match(/^\/rest\/groups\/[0-9]+\/posts(\?.*)?$/)) {
             // get posts for group
             const groupId = parseInt(req.url.match(/[0-9]+/g)[0], 10);
-            return this.createResponse(this.dataService.getPostsForGroup(groupId));
-        } else if (req.method === 'GET' && req.url.match(/^\/rest\/groups\/[0-9]+\/subscriptions\/[0-9]+\/posts$/)) {
+            const sort = req.url.match(/sort=([^&]*)/)[1];
+            return this.createResponse(this.dataService.getPostsForGroup(groupId, sort));
+        } else if (req.method === 'GET' && req.url.match(/^\/rest\/groups\/[0-9]+\/subscriptions\/[0-9]+\/posts(\?.*)?$/)) {
             // get posts for subscription
             const ids = req.url.match(/[0-9]+/g);
             const groupId = parseInt(ids[0], 10);
             const subscriptionId = parseInt(ids[1], 10);
-            return this.createResponse(this.dataService.getPostsForSubscription(groupId, subscriptionId));
+            const sort = req.url.match(/sort=([^&]*)/)[1];
+            return this.createResponse(this.dataService.getPostsForSubscription(groupId, subscriptionId, sort));
         } else {
             throw new Error(`Mock handler not implemented for request ${req.method} ${req.url}`);
         }

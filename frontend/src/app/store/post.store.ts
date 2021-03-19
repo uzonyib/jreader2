@@ -16,9 +16,18 @@ export class PostStore {
         this.posts = posts;
     }
 
+    refreshGroupReferences(): void {
+        this.posts.forEach(post => this.init(post));
+    }
+
     private init(post: Post): void {
         const group = this.groupStore.groups.find(g => g.id === post.groupId);
-        post.subscriptionName = group.subscriptions.find(subscription => subscription.id === post.subscriptionId).name;
+        if (group) {
+            const subscription = group.subscriptions.find(s => s.id === post.subscriptionId);
+            if (subscription) {
+                post.subscriptionName = subscription.name;
+            }
+        }
     }
 
 }

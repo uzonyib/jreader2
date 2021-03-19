@@ -5,13 +5,14 @@ import { Group } from '../model/group';
 import { GroupStore } from '../store/group.store';
 import { Subscription as SubscriptionRequest } from '../domain/subscription';
 import { Subscription } from '../model/subscription';
+import { PostStore } from '../store/post.store';
 
 @Injectable({
     providedIn: 'root'
 })
 export class GroupService {
 
-    constructor(private http: HttpClient, private store: GroupStore) { }
+    constructor(private http: HttpClient, private store: GroupStore, private postStore: PostStore) { }
 
     initStore(): void {
         this.reloadStore();
@@ -41,7 +42,10 @@ export class GroupService {
     }
 
     private reloadStore(): void {
-        this.http.get<Group[]>('/rest/groups').subscribe(groups => this.store.setGroups(groups));
+        this.http.get<Group[]>('/rest/groups').subscribe(groups => {
+            this.store.setGroups(groups);
+            this.postStore.refreshGroupReferences();
+        });
     }
 
 }

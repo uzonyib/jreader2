@@ -54,7 +54,8 @@ public class PostDaoImpl implements PostDao {
     public List<Post> listAll(PostFilter filter) {
         Query query = Query.newEntityQueryBuilder().setKind("Post")
                 .setFilter(getAncestorFilter(filter))
-                .setOrderBy(StructuredQuery.OrderBy.asc("publishDate"))
+                .setOrderBy(filter.isAscendingOrder() ?
+                        StructuredQuery.OrderBy.asc("publishDate") : StructuredQuery.OrderBy.desc("publishDate"))
                 .setLimit(filter.getLimit())
                 .build();
         Iterator<Entity> entities = datastore.run(query);

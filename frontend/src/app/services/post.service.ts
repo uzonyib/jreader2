@@ -13,12 +13,13 @@ export class PostService {
 
     load(filter: PostFilter): void {
         if (filter.subscriptionId !== null) {
-            this.http.get<Post[]>(`/rest/groups/${filter.groupId}/subscriptions/${filter.subscriptionId}/posts`)
+            this.http.get<Post[]>(`/rest/groups/${filter.groupId}/subscriptions/${filter.subscriptionId}/posts?sort=${filter.sort}`)
                 .subscribe(posts => this.store.setPosts(posts));
         } else if (filter.groupId !== null) {
-            this.http.get<Post[]>(`/rest/groups/${filter.groupId}/posts`).subscribe(posts => this.store.setPosts(posts));
+            this.http.get<Post[]>(`/rest/groups/${filter.groupId}/posts?sort=${filter.sort}`)
+                .subscribe(posts => this.store.setPosts(posts));
         } else {
-            this.http.get<Post[]>('/rest/posts').subscribe(posts => this.store.setPosts(posts));
+            this.http.get<Post[]>(`/rest/posts?sort=${filter.sort}`).subscribe(posts => this.store.setPosts(posts));
         }
     }
 

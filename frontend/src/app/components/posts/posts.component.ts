@@ -11,25 +11,40 @@ import { PostFilter } from 'src/app/model/postfilter';
 })
 export class PostsComponent implements OnInit {
 
+    store: PostStore;
+
     groupId: string;
     subscriptionId: string;
-    store: PostStore;
+    sort: string;
 
     constructor(private route: ActivatedRoute, private service: PostService, store: PostStore) {
         this.store = store;
     }
 
     ngOnInit(): void {
+        this.sort = this.route.snapshot.queryParamMap.get('sort');
+        if (!this.sort) {
+            this.sort = 'asc';
+        }
+
         this.route.paramMap.subscribe(params => {
             this.groupId = params.get('groupId');
             this.subscriptionId = params.get('subscriptionId');
             this.refreshPosts();
         });
+        this.route.queryParamMap.subscribe(params => {
+            const newSort = params.get('sort');
+            if (newSort && this.sort !== newSort) {
+                this.sort = newSort;
+                this.refreshPosts();
+            }
+        });
     }
 
     refreshPosts(): void {
-        const filter = new PostFilter(this.groupId ? parseInt(this.groupId) : null,
-            this.subscriptionId ? parseInt(this.subscriptionId) : null);
+        const filter = new PostFilter(this.groupId ? parseInt(this.groupId, 10) : null,
+            this.subscriptionId ? parseInt(this.subscriptionId, 10) : null,
+            this.sort);
         this.service.load(filter);
     }
 

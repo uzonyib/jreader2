@@ -36,6 +36,7 @@ import { ConfirmUnsubscribeComponent } from './components/dialogs/confirm-unsubs
 import { MenuToggleComponent } from './components/toolbars/menu-toggle/menu-toggle.component';
 import { MockRestInterceptor } from './interceptors/mockrestinterceptor';
 import { ReaderBarComponent } from './components/toolbars/reader-bar/reader-bar.component';
+import { SortToggleComponent } from './components/toolbars/sort-toggle/sort-toggle.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/reader/overview?menu=on', pathMatch: 'full' },
@@ -61,7 +62,8 @@ const routes: Routes = [
         ConfirmGroupDeletionComponent,
         ConfirmUnsubscribeComponent,
         MenuToggleComponent,
-        ReaderBarComponent
+        ReaderBarComponent,
+        SortToggleComponent
     ],
     imports: [
         BrowserModule,
