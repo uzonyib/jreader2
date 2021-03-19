@@ -1,4 +1,4 @@
-<mat-button-toggle-group [(ngModel)]="sort" [value]="sort" (change)="toggle()">
+<mat-button-toggle-group [(ngModel)]="sort" [value]="sort" [disabled]="loading" (change)="toggle()">
     <mat-button-toggle value="asc" aria-label="Ascending">
         <mat-icon>keyboard_arrow_down</mat-icon>
     </mat-button-toggle>

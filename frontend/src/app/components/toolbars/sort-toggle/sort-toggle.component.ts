@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PostService } from 'src/app/services/post.service';
 
 @Component({
     selector: 'app-sort-toggle',
@@ -9,8 +10,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class SortToggleComponent implements OnInit {
 
     sort = 'asc';
+    loading = false;
 
-    constructor(private router: Router, private route: ActivatedRoute) { }
+    constructor(private router: Router, private route: ActivatedRoute, service: PostService) {
+        service.isLoading().subscribe(l => this.loading = l);
+    }
 
     ngOnInit(): void {
         this.sort = this.route.snapshot.queryParamMap.get('sort') === 'desc' ? 'desc' : 'asc';

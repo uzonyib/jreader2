@@ -1,0 +1,3 @@
+<mat-icon [matBadge]="store.posts.length" *ngIf="!loading" matTooltip="Posts displayed" matBadgeColor="warn">article</mat-icon>
+
+<mat-icon *ngIf="loading">hourglass_top</mat-icon>

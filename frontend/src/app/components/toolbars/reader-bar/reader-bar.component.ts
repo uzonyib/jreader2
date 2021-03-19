@@ -8,11 +8,7 @@ import { PostStore } from 'src/app/store/post.store';
 })
 export class ReaderBarComponent implements OnInit {
 
-    store: PostStore;
-
-    constructor(store: PostStore) {
-        this.store = store;
-    }
+    constructor() { }
 
     ngOnInit(): void { }
 

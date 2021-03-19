@@ -37,6 +37,8 @@ import { MenuToggleComponent } from './components/toolbars/menu-toggle/menu-togg
 import { MockRestInterceptor } from './interceptors/mockrestinterceptor';
 import { ReaderBarComponent } from './components/toolbars/reader-bar/reader-bar.component';
 import { SortToggleComponent } from './components/toolbars/sort-toggle/sort-toggle.component';
+import { RefreshButtonComponent } from './components/toolbars/refresh-button/refresh-button.component';
+import { PostsStatusComponent } from './components/toolbars/posts-status/posts-status.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/reader/overview?menu=on', pathMatch: 'full' },
@@ -63,7 +65,9 @@ const routes: Routes = [
         ConfirmUnsubscribeComponent,
         MenuToggleComponent,
         ReaderBarComponent,
-        SortToggleComponent
+        SortToggleComponent,
+        RefreshButtonComponent,
+        PostsStatusComponent
     ],
     imports: [
         BrowserModule,
