@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
 import { PostStore } from 'src/app/store/post.store';
 import { PostFilter } from 'src/app/model/postfilter';
+import { Post } from 'src/app/model/post';
 
 @Component({
     selector: 'app-posts',
@@ -46,6 +47,13 @@ export class PostsComponent implements OnInit {
             this.subscriptionId ? parseInt(this.subscriptionId, 10) : null,
             this.sort);
         this.service.load(filter);
+    }
+
+    read(post: Post): void {
+        if (!post.read) {
+            post.read = true;
+            this.service.read(post);
+        }
     }
 
 }

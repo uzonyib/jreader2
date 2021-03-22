@@ -5,6 +5,7 @@ import { Post } from '../model/post';
 import { PostFilter } from '../model/postfilter';
 import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { PostUpdate } from '../domain/postupdate';
 
 @Injectable({
     providedIn: 'root'
@@ -40,10 +41,17 @@ export class PostService {
         return this.loading;
     }
 
+    read(post: Post): void {
+        const update = new PostUpdate(post.groupId, post.subscriptionId, post.uri);
+        update.read = true;
+        this.http.post<void>('/rest/posts', [update]).subscribe();
+    }
+
     private storePosts(posts: Post[]): void {
         setTimeout(() => {
             this.store.setPosts(posts);
             this.loading.next(false);
         }, environment.production ? 0 : 1000);
     }
+
 }

@@ -1,11 +1,11 @@
 <app-reader-bar></app-reader-bar>
 
 <mat-accordion hideToggle displayMode="flat">
-    <mat-expansion-panel *ngFor="let post of store.posts">
+    <mat-expansion-panel *ngFor="let post of store.posts" (opened)="read(post)">
         <mat-expansion-panel-header>
             <mat-panel-title class="post-header-subscription">{{post.subscriptionName}}</mat-panel-title>
             <mat-panel-description class="post-header-main">
-                <div>{{post.title}}</div>
+                <div [class.unread]="!post.read">{{post.title}}</div>
                 <div>{{post.publishDate | date: 'medium'}}</div>
             </mat-panel-description>
         </mat-expansion-panel-header>

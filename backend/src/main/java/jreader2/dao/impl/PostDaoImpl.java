@@ -5,6 +5,7 @@ import com.google.cloud.datastore.*;
 import jreader2.dao.PostDao;
 import jreader2.domain.Post;
 import jreader2.domain.PostFilter;
+import jreader2.domain.PostKey;
 import jreader2.domain.Subscription;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.ConversionService;
@@ -28,19 +29,12 @@ public class PostDaoImpl implements PostDao {
 
     @Override
     public void create(Subscription subscription, Post post) {
-        Entity.Builder builder = Entity.newBuilder(keyFactory.createPostKey(subscription, post.getUri()))
-                .set("url", post.getUrl())
-                .set("title", post.getTitle())
-                .set("publishDate", conversionService.convert(post.getPublishDate(), Timestamp.class))
-                .set("read", post.isRead())
-                .set("bookmarked", post.isBookmarked());
-        if (nonNull(post.getDescription()) && !post.getDescription().isBlank()) {
-            builder.set("description", post.getDescription());
-        }
-        if (nonNull(post.getAuthor()) && !post.getAuthor().isBlank()) {
-            builder.set("author", post.getAuthor());
-        }
-        datastore.put(builder.build());
+        datastore.put(toEntity(keyFactory.createPostKey(subscription, post.getUri()), post));
+    }
+
+    @Override
+    public void update(Post... posts) {
+        datastore.update(Arrays.stream(posts).map(this::toEntity).toArray(Entity[]::new));
     }
 
     @Override
@@ -51,8 +45,19 @@ public class PostDaoImpl implements PostDao {
     }
 
     @Override
+    public List<Post> list(PostKey... keys) {
+        List<Key> entityKeys = Arrays.stream(keys).map(key -> keyFactory.createPostKey(key.getOwnerEmail(),
+                key.getGroupId(), key.getSubscriptionId(), key.getUri())).collect(Collectors.toList());
+        Iterator<Entity> entities = datastore.get(entityKeys);
+        return toStream(entities)
+                .map(this::toPost)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<Post> listAll(PostFilter filter) {
-        Query query = Query.newEntityQueryBuilder().setKind("Post")
+        Query query = Query.newEntityQueryBuilder()
+                .setKind("Post")
                 .setFilter(getAncestorFilter(filter))
                 .setOrderBy(filter.isAscendingOrder() ?
                         StructuredQuery.OrderBy.asc("publishDate") : StructuredQuery.OrderBy.desc("publishDate"))
@@ -97,6 +102,27 @@ public class PostDaoImpl implements PostDao {
                 .read(entity.getBoolean("read"))
                 .bookmarked(entity.getBoolean("bookmarked"))
                 .build();
+    }
+
+    private Entity toEntity(Post post) {
+        return toEntity(keyFactory.createPostKey(post.getOwnerEmail(), post.getGroupId(), post.getSubscriptionId(),
+                post.getUri()), post);
+    }
+
+    private Entity toEntity(Key key, Post post) {
+        Entity.Builder builder = Entity.newBuilder(key)
+                .set("url", post.getUrl())
+                .set("title", post.getTitle())
+                .set("publishDate", conversionService.convert(post.getPublishDate(), Timestamp.class))
+                .set("read", post.isRead())
+                .set("bookmarked", post.isBookmarked());
+        if (nonNull(post.getDescription()) && !post.getDescription().isBlank()) {
+            builder.set("description", post.getDescription());
+        }
+        if (nonNull(post.getAuthor()) && !post.getAuthor().isBlank()) {
+            builder.set("author", post.getAuthor());
+        }
+        return builder.build();
     }
 
     private StructuredQuery.PropertyFilter getAncestorFilter(PostFilter filter) {

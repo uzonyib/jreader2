@@ -2,9 +2,9 @@ package jreader2.web.controller.rest;
 
 import jreader2.domain.Post;
 import jreader2.domain.PostFilter;
+import jreader2.domain.PostUpdate;
 import jreader2.web.service.PostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +33,11 @@ public class PostController {
                 .limit(20)
                 .build();
         return postService.list(filter);
+    }
+
+    @PostMapping("/posts")
+    public void update(OAuth2AuthenticationToken auth, @RequestBody List<PostUpdate> updates) {
+        postService.update(auth.getPrincipal().getAttribute("email"), updates);
     }
 
 }

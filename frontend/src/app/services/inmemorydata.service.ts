@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Group } from '../domain/group';
 import { Subscription } from '../domain/subscription';
 import { Post } from '../domain/post';
+import { PostUpdate } from '../domain/postupdate';
 
 @Injectable({
     providedIn: 'root'
@@ -138,6 +139,19 @@ export class InMemoryDataService {
             return posts.reverse();
         }
         return posts;
+    }
+
+    updatePosts(updates: PostUpdate[]): void {
+        updates.forEach(update => {
+            const post = this.posts.find(p => p.groupId === update.groupId && p.subscriptionId == update.subscriptionId
+                && p.uri == update.uri);
+            if (update.read !== null) {
+                post.read = update.read;
+            }
+            if (update.bookmarked !== null) {
+                post.bookmarked = update.bookmarked;
+            }
+        });
     }
 
     private comparePosts(p1: Post, p2: Post): number {
