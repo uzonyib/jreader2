@@ -39,6 +39,7 @@ import { ReaderBarComponent } from './components/toolbars/reader-bar/reader-bar.
 import { SortToggleComponent } from './components/toolbars/sort-toggle/sort-toggle.component';
 import { RefreshButtonComponent } from './components/toolbars/refresh-button/refresh-button.component';
 import { PostsStatusComponent } from './components/toolbars/posts-status/posts-status.component';
+import { ReadAllButtonComponent } from './components/toolbars/read-all-button/read-all-button.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/reader/overview?menu=on', pathMatch: 'full' },
@@ -67,7 +68,8 @@ const routes: Routes = [
         ReaderBarComponent,
         SortToggleComponent,
         RefreshButtonComponent,
-        PostsStatusComponent
+        PostsStatusComponent,
+        ReadAllButtonComponent
     ],
     imports: [
         BrowserModule,

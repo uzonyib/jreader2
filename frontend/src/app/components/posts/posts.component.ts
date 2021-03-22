@@ -51,7 +51,6 @@ export class PostsComponent implements OnInit {
 
     read(post: Post): void {
         if (!post.read) {
-            post.read = true;
             this.service.read(post);
         }
     }
