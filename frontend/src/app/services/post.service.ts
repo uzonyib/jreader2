@@ -44,17 +44,15 @@ export class PostService {
     }
 
     read(post: Post): void {
-        post.read = true;
         const update = new PostUpdate(post.groupId, post.subscriptionId, post.uri);
         update.read = true;
-        this.http.post<void>('/rest/posts', [update]).subscribe();
+        this.http.post<void>('/rest/posts', [update]).subscribe(() => post.read = true );
     }
 
     readAll(): void {
         const updates: PostUpdate[] = [];
         this.store.posts.forEach(post => {
             if (!post.read) {
-                post.read = true;
                 const update = new PostUpdate(post.groupId, post.subscriptionId, post.uri);
                 update.read = true;
                 updates.push(update);
@@ -66,10 +64,10 @@ export class PostService {
     }
 
     bookmark(post: Post, bookmarked: boolean): void {
-        post.bookmarked = bookmarked;
+        post.bookmarked = undefined;
         const update = new PostUpdate(post.groupId, post.subscriptionId, post.uri);
         update.bookmarked = bookmarked;
-        this.http.post<void>('/rest/posts', [update]).subscribe();
+        this.http.post<void>('/rest/posts', [update]).subscribe(() => post.bookmarked = bookmarked);
     }
 
     private storePosts(posts: Post[]): void {

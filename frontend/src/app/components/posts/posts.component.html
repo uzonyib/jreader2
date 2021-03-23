@@ -4,11 +4,20 @@
     <mat-expansion-panel *ngFor="let post of store.posts" (opened)="read(post)">
         <mat-expansion-panel-header>
             <mat-panel-title class="post-header-subscription">
-                <button mat-icon-button matTooltip="Bookmark" color="accent" *ngIf="!post.bookmarked" (click)="bookmark(post); $event.stopPropagation();">
+                <button mat-icon-button *ngIf="post.bookmarked === false"
+                        (click)="bookmark(post); $event.stopPropagation();"
+                        matTooltip="Bookmark" color="accent">
                     <mat-icon>bookmark_border</mat-icon>
                 </button>
-                <button mat-icon-button matTooltip="Remove bookmark" color="accent" *ngIf="post.bookmarked" (click)="removeBookmark(post); $event.stopPropagation();">
+                <button mat-icon-button *ngIf="post.bookmarked === true"
+                        (click)="removeBookmark(post); $event.stopPropagation();"
+                        matTooltip="Remove bookmark" color="accent">
                     <mat-icon>bookmark</mat-icon>
+                </button>
+                <button mat-icon-button *ngIf="post.bookmarked === undefined"
+                        (click)="$event.stopPropagation();"
+                        color="accent">
+                    <mat-icon>hourglass_top</mat-icon>
                 </button>
                 <span>{{post.subscriptionName}}</span>
             </mat-panel-title>
@@ -17,7 +26,12 @@
                 <div>{{post.publishDate | date: 'medium'}}</div>
             </mat-panel-description>
         </mat-expansion-panel-header>
-        <div><a [href]="post.url" target="_blank">{{post.title}}</a> by {{post.author}}</div>
+        <div>
+            <a mat-button matTooltip="Open in new tab" [href]="post.url" target="_blank">
+                <span>{{post.title}}</span>
+                <span *ngIf="post.author"> by {{post.author}}</span>
+            </a>
+        </div>
         <div [innerHTML]="post.description"></div>
     </mat-expansion-panel>
 </mat-accordion>

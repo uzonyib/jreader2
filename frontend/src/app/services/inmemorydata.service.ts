@@ -57,7 +57,7 @@ export class InMemoryDataService {
         url: 'http://java.com/2',
         title: 'Java 2',
         description: 'Java 2 description',
-        author: 'java author 2',
+        author: '',
         publishDate: '2021-03-09T12:50:00Z',
         read: false,
         bookmarked: false

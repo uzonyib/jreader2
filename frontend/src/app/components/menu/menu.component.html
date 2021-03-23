@@ -1,23 +1,32 @@
 <app-menu-bar></app-menu-bar>
 <mat-selection-list [multiple]="false">
-    <mat-list-option routerLink="/reader/overview" queryParamsHandling="preserve" routerLinkActive="mat-list-single-selected-option">
+    <mat-list-option routerLink="/reader/overview" queryParamsHandling="preserve"
+            routerLinkActive="mat-list-single-selected-option">
         <mat-icon mat-list-icon>home</mat-icon>
         <span>Overview</span>
     </mat-list-option>
-    <mat-list-option routerLink="/reader/posts" queryParamsHandling="preserve" routerLinkActive="mat-list-single-selected-option" [routerLinkActiveOptions]="{exact: true}">
+    <mat-list-option routerLink="/reader/posts" queryParamsHandling="preserve"
+            routerLinkActive="mat-list-single-selected-option" [routerLinkActiveOptions]="{exact: true}">
         <mat-icon mat-list-icon>view_list</mat-icon>
         <span>All feeds</span>
     </mat-list-option>
     <div *ngFor="let group of store.groups">
         <mat-list-option [value]="group" routerLink="/reader/posts/groups/{{group.id}}" queryParamsHandling="preserve"
-            routerLinkActive="mat-list-single-selected-option" [routerLinkActiveOptions]="{exact: true}">
-            <mat-icon mat-list-icon *ngIf="group.subscriptions?.length && group.collapsed" (click)="group.collapsed = false">expand_more</mat-icon>
-            <mat-icon mat-list-icon *ngIf="group.subscriptions?.length && !group.collapsed" (click)="group.collapsed = true">expand_less</mat-icon>
+                routerLinkActive="mat-list-single-selected-option" [routerLinkActiveOptions]="{exact: true}">
+            <mat-icon mat-list-icon *ngIf="group.subscriptions?.length && group.collapsed"
+                    (click)="group.collapsed = false; $event.stopPropagation();">
+                expand_more
+            </mat-icon>
+            <mat-icon mat-list-icon *ngIf="group.subscriptions?.length && !group.collapsed"
+                    (click)="group.collapsed = true; $event.stopPropagation();">
+                expand_less
+            </mat-icon>
             <span>{{group.name}}</span>
         </mat-list-option>
         <div *ngIf="!group.collapsed">
             <mat-list-option *ngFor="let subscription of group.subscriptions" [value]="group"
-                routerLink="/reader/posts/groups/{{group.id}}/subscription/{{subscription.id}}" queryParamsHandling="preserve"
+                routerLink="/reader/posts/groups/{{group.id}}/subscription/{{subscription.id}}"
+                queryParamsHandling="preserve"
                 routerLinkActive="mat-list-single-selected-option"
                 [routerLinkActiveOptions]="{exact: true}">
                 <mat-icon mat-list-icon>arrow_right</mat-icon>

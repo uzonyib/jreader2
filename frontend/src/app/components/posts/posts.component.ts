@@ -68,13 +68,13 @@ export class PostsComponent implements OnInit {
     }
 
     bookmark(post: Post): void {
-        if (!post.bookmarked) {
+        if (post.bookmarked === false) {
             this.service.bookmark(post, true);
         }
     }
 
     removeBookmark(post: Post): void {
-        if (post.bookmarked) {
+        if (post.bookmarked === true) {
             this.service.bookmark(post, false);
         }
     }
