@@ -65,6 +65,13 @@ export class PostService {
         }
     }
 
+    bookmark(post: Post, bookmarked: boolean): void {
+        post.bookmarked = bookmarked;
+        const update = new PostUpdate(post.groupId, post.subscriptionId, post.uri);
+        update.bookmarked = bookmarked;
+        this.http.post<void>('/rest/posts', [update]).subscribe();
+    }
+
     private storePosts(posts: Post[]): void {
         setTimeout(() => {
             this.store.setPosts(posts);

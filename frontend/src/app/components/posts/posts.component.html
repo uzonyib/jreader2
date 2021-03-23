@@ -3,7 +3,15 @@
 <mat-accordion hideToggle displayMode="flat">
     <mat-expansion-panel *ngFor="let post of store.posts" (opened)="read(post)">
         <mat-expansion-panel-header>
-            <mat-panel-title class="post-header-subscription">{{post.subscriptionName}}</mat-panel-title>
+            <mat-panel-title class="post-header-subscription">
+                <button mat-icon-button matTooltip="Bookmark" color="accent" *ngIf="!post.bookmarked" (click)="bookmark(post); $event.stopPropagation();">
+                    <mat-icon>bookmark_border</mat-icon>
+                </button>
+                <button mat-icon-button matTooltip="Remove bookmark" color="accent" *ngIf="post.bookmarked" (click)="removeBookmark(post); $event.stopPropagation();">
+                    <mat-icon>bookmark</mat-icon>
+                </button>
+                <span>{{post.subscriptionName}}</span>
+            </mat-panel-title>
             <mat-panel-description class="post-header-main">
                 <div [class.unread]="!post.read">{{post.title}}</div>
                 <div>{{post.publishDate | date: 'medium'}}</div>
