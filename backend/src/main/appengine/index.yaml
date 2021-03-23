@@ -16,3 +16,14 @@ indexes:
   properties:
   - name: "publishDate"
     direction: desc
+- kind: "Post"
+  ancestor: yes
+  properties:
+  - name: "read"
+  - name: "publishDate"
+- kind: "Post"
+  ancestor: yes
+  properties:
+  - name: "read"
+  - name: "publishDate"
+    direction: desc

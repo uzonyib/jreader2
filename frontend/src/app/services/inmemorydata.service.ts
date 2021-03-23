@@ -117,28 +117,18 @@ export class InMemoryDataService {
         group.subscriptions.splice(index, 1);
     }
 
-    getPosts(sort: string): Post[] {
-        const posts = this.posts.sort(this.comparePosts);
-        if (sort === 'desc') {
-            return posts.reverse();
-        }
-        return posts;
+    getPosts(selection: string, sort: string): Post[] {
+        return this.sort(this.filter(this.posts, selection), sort);
     }
 
-    getPostsForGroup(groupId: number, sort: string): Post[] {
-        const posts = this.posts.filter(post => post.groupId === groupId).sort(this.comparePosts);
-        if (sort === 'desc') {
-            return posts.reverse();
-        }
-        return posts;
+    getPostsForGroup(groupId: number, selection: string, sort: string): Post[] {
+        return this.sort(this.filter(this.posts.filter(post => post.groupId === groupId), selection), sort);
     }
 
-    getPostsForSubscription(groupId: number, subscriptionId: number, sort: string): Post[] {
-        const posts = this.posts.filter(post => post.groupId === groupId && post.subscriptionId === subscriptionId).sort(this.comparePosts);
-        if (sort === 'desc') {
-            return posts.reverse();
-        }
-        return posts;
+    getPostsForSubscription(groupId: number, subscriptionId: number, selection: string, sort: string): Post[] {
+        return this.sort(this.filter(
+            this.posts.filter(post => post.groupId === groupId && post.subscriptionId === subscriptionId), selection),
+            sort);
     }
 
     updatePosts(updates: PostUpdate[]): void {
@@ -152,6 +142,21 @@ export class InMemoryDataService {
                 post.bookmarked = update.bookmarked;
             }
         });
+    }
+
+    private filter(posts: Post[], selection: string): Post[] {
+        if (selection === 'unread') {
+            return posts.filter(post => !post.read);
+        }
+        return posts;
+    }
+
+    private sort(posts: Post[], sort: string): Post[] {
+        const result = posts.sort(this.comparePosts);
+        if (sort === 'desc') {
+            return result.reverse();
+        }
+        return result;
     }
 
     private comparePosts(p1: Post, p2: Post): number {

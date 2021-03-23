@@ -23,13 +23,15 @@ export class PostService {
         this.currentFilter = filter;
 
         if (filter.subscriptionId !== null) {
-            this.http.get<Post[]>(`/rest/groups/${filter.groupId}/subscriptions/${filter.subscriptionId}/posts?sort=${filter.sort}`)
+            this.http.get<Post[]>(`/rest/groups/${filter.groupId}/subscriptions/${filter.subscriptionId}/posts`
+                    + `?sort=${filter.sort}&selection=${filter.selection}`)
                 .subscribe(posts => this.storePosts(posts));
         } else if (filter.groupId !== null) {
-            this.http.get<Post[]>(`/rest/groups/${filter.groupId}/posts?sort=${filter.sort}`)
+            this.http.get<Post[]>(`/rest/groups/${filter.groupId}/posts?`
+                    + `sort=${filter.sort}&selection=${filter.selection}`)
                 .subscribe(posts => this.storePosts(posts));
         } else {
-            this.http.get<Post[]>(`/rest/posts?sort=${filter.sort}`).subscribe(posts => this.storePosts(posts));
+            this.http.get<Post[]>(`/rest/posts?sort=${filter.sort}&selection=${filter.selection}`).subscribe(posts => this.storePosts(posts));
         }
     }
 

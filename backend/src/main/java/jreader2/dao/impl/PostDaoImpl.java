@@ -3,10 +3,7 @@ package jreader2.dao.impl;
 import com.google.cloud.Timestamp;
 import com.google.cloud.datastore.*;
 import jreader2.dao.PostDao;
-import jreader2.domain.Post;
-import jreader2.domain.PostFilter;
-import jreader2.domain.PostKey;
-import jreader2.domain.Subscription;
+import jreader2.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Repository;
@@ -56,9 +53,15 @@ public class PostDaoImpl implements PostDao {
 
     @Override
     public List<Post> listAll(PostFilter filter) {
-        Query query = Query.newEntityQueryBuilder()
-                .setKind("Post")
-                .setFilter(getAncestorFilter(filter))
+        EntityQuery.Builder queryBuilder = Query.newEntityQueryBuilder().setKind("Post");
+
+        if (filter.getSelection() == Selection.UNREAD) {
+            queryBuilder.setFilter(StructuredQuery.CompositeFilter.and(
+                    getAncestorFilter(filter), StructuredQuery.PropertyFilter.eq("read", false)));
+        } else {
+            queryBuilder.setFilter(getAncestorFilter(filter));
+        }
+        Query query = queryBuilder
                 .setOrderBy(filter.isAscendingOrder() ?
                         StructuredQuery.OrderBy.asc("publishDate") : StructuredQuery.OrderBy.desc("publishDate"))
                 .setLimit(filter.getLimit())

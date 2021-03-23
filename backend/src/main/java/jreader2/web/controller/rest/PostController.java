@@ -3,6 +3,7 @@ package jreader2.web.controller.rest;
 import jreader2.domain.Post;
 import jreader2.domain.PostFilter;
 import jreader2.domain.PostUpdate;
+import jreader2.domain.Selection;
 import jreader2.web.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -10,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+
+import static jreader2.domain.Selection.ALL;
+import static jreader2.domain.Selection.UNREAD;
 
 @RestController
 @RequestMapping("/rest")
@@ -23,12 +27,14 @@ public class PostController {
             "/groups/{groupId}/posts",
             "/groups/{groupId}/subscriptions/{subscriptionId}/posts"
     })
-    public List<Post> list(OAuth2AuthenticationToken auth, @PathVariable Optional<Long> groupId,
-                           @PathVariable Optional<Long> subscriptionId, @RequestParam Optional<String> sort) {
+    public List<Post> list(OAuth2AuthenticationToken auth,
+                           @PathVariable Optional<Long> groupId, @PathVariable Optional<Long> subscriptionId,
+                           @RequestParam Optional<String> selection, @RequestParam Optional<String> sort) {
         PostFilter filter = PostFilter.builder()
                 .email(auth.getPrincipal().getAttribute("email"))
                 .groupId(groupId)
                 .subscriptionId(subscriptionId)
+                .selection(selection.map(s -> s.equals("all") ? ALL : UNREAD).orElse(UNREAD))
                 .ascendingOrder(sort.map(s -> !s.equals("desc")).orElse(true))
                 .limit(20)
                 .build();

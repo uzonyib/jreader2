@@ -46,19 +46,24 @@ export class MockRestInterceptor implements HttpInterceptor {
         } else if (req.method === 'GET' && req.url.match(/^\/rest\/posts(\?.*)?$/)) {
             // get posts
             const sort = req.url.match(/sort=([^&]*)/)[1];
-            return this.createResponse(this.dataService.getPosts(sort));
+            const selection = req.url.match(/selection=([^&]*)/)[1];
+            return this.createResponse(this.dataService.getPosts(selection, sort));
         } else if (req.method === 'GET' && req.url.match(/^\/rest\/groups\/[0-9]+\/posts(\?.*)?$/)) {
             // get posts for group
             const groupId = parseInt(req.url.match(/[0-9]+/g)[0], 10);
             const sort = req.url.match(/sort=([^&]*)/)[1];
-            return this.createResponse(this.dataService.getPostsForGroup(groupId, sort));
-        } else if (req.method === 'GET' && req.url.match(/^\/rest\/groups\/[0-9]+\/subscriptions\/[0-9]+\/posts(\?.*)?$/)) {
+            const selection = req.url.match(/selection=([^&]*)/)[1];
+            return this.createResponse(this.dataService.getPostsForGroup(groupId, selection, sort));
+        } else if (req.method === 'GET'
+        && req.url.match(/^\/rest\/groups\/[0-9]+\/subscriptions\/[0-9]+\/posts(\?.*)?$/)) {
             // get posts for subscription
             const ids = req.url.match(/[0-9]+/g);
             const groupId = parseInt(ids[0], 10);
             const subscriptionId = parseInt(ids[1], 10);
             const sort = req.url.match(/sort=([^&]*)/)[1];
-            return this.createResponse(this.dataService.getPostsForSubscription(groupId, subscriptionId, sort));
+            const selection = req.url.match(/selection=([^&]*)/)[1];
+            return this.createResponse(this.dataService.getPostsForSubscription(groupId, subscriptionId,
+                selection, sort));
         } else if (req.method === 'POST' && req.url === '/rest/posts') {
             // update posts
             this.dataService.updatePosts(req.body);

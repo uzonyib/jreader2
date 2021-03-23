@@ -40,6 +40,7 @@ import { SortToggleComponent } from './components/toolbars/sort-toggle/sort-togg
 import { RefreshButtonComponent } from './components/toolbars/refresh-button/refresh-button.component';
 import { PostsStatusComponent } from './components/toolbars/posts-status/posts-status.component';
 import { ReadAllButtonComponent } from './components/toolbars/read-all-button/read-all-button.component';
+import { SelectionToggleComponent } from './components/toolbars/selection-toggle/selection-toggle.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/reader/overview?menu=on', pathMatch: 'full' },
@@ -69,7 +70,8 @@ const routes: Routes = [
         SortToggleComponent,
         RefreshButtonComponent,
         PostsStatusComponent,
-        ReadAllButtonComponent
+        ReadAllButtonComponent,
+        SelectionToggleComponent
     ],
     imports: [
         BrowserModule,

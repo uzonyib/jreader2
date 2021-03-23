@@ -3,13 +3,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
 
 @Component({
-    selector: 'app-sort-toggle',
-    templateUrl: './sort-toggle.component.html',
-    styleUrls: ['./sort-toggle.component.css']
+    selector: 'app-selection-toggle',
+    templateUrl: 'selection-toggle.component.html',
+    styleUrls: ['selection-toggle.component.css']
 })
-export class SortToggleComponent implements OnInit {
+export class SelectionToggleComponent implements OnInit {
 
-    sort = 'asc';
+    selection = 'unread';
     loading = false;
 
     constructor(private router: Router, private route: ActivatedRoute, service: PostService) {
@@ -17,13 +17,13 @@ export class SortToggleComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.sort = this.route.snapshot.queryParamMap.get('sort') === 'desc' ? 'desc' : 'asc';
+        this.selection = this.route.snapshot.queryParamMap.get('selection') === 'all' ? 'all' : 'unread';
     }
 
     toggle(): void {
         this.router.navigate([], {
             relativeTo: this.route,
-            queryParams: this.sort === 'desc' ? { sort: 'desc' } : { sort: null },
+            queryParams: this.selection === 'all' ? { selection: 'all' } : { selection: null },
             queryParamsHandling: 'merge'
         });
     }

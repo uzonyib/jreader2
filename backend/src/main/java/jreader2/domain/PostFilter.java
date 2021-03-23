@@ -12,6 +12,7 @@ public class PostFilter {
     private final String email;
     private Optional<Long> groupId;
     private Optional<Long> subscriptionId;
+    private Selection selection;
     private boolean ascendingOrder;
     private int limit;
 

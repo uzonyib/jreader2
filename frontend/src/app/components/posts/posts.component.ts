@@ -16,6 +16,7 @@ export class PostsComponent implements OnInit {
 
     groupId: string;
     subscriptionId: string;
+    selection: string;
     sort: string;
 
     constructor(private route: ActivatedRoute, private service: PostService, store: PostStore) {
@@ -28,15 +29,24 @@ export class PostsComponent implements OnInit {
             this.sort = 'asc';
         }
 
+        this.selection = this.route.snapshot.queryParamMap.get('selection');
+        if (!this.selection) {
+            this.selection = 'unread';
+        }
+
         this.route.paramMap.subscribe(params => {
             this.groupId = params.get('groupId');
             this.subscriptionId = params.get('subscriptionId');
             this.refreshPosts();
+
         });
         this.route.queryParamMap.subscribe(params => {
-            const newSort = params.get('sort');
-            if (newSort && this.sort !== newSort) {
-                this.sort = newSort;
+            const oldSelection = this.selection;
+            const oldSort = this.sort;
+            this.selection = params.get('selection') === 'all' ? 'all' : 'unread';
+            this.sort = params.get('sort') === 'desc' ? 'desc' : 'asc';
+
+            if (oldSelection !== this.selection || oldSort !== this.sort) {
                 this.refreshPosts();
             }
         });
@@ -45,7 +55,7 @@ export class PostsComponent implements OnInit {
     refreshPosts(): void {
         const filter = new PostFilter(this.groupId ? parseInt(this.groupId, 10) : null,
             this.subscriptionId ? parseInt(this.subscriptionId, 10) : null,
-            this.sort);
+            this.selection, this.sort);
         this.service.load(filter);
     }
 
