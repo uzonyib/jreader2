@@ -34,7 +34,7 @@ public class PostController {
                 .email(auth.getPrincipal().getAttribute("email"))
                 .groupId(groupId)
                 .subscriptionId(subscriptionId)
-                .selection(selection.map(s -> s.equals("all") ? ALL : UNREAD).orElse(UNREAD))
+                .selection(selection.map(s -> Selection.valueOf(s.toUpperCase())).orElse(UNREAD))
                 .ascendingOrder(sort.map(s -> !s.equals("desc")).orElse(true))
                 .limit(20)
                 .build();

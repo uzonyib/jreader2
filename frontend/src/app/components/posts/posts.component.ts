@@ -4,6 +4,7 @@ import { PostService } from 'src/app/services/post.service';
 import { PostStore } from 'src/app/store/post.store';
 import { PostFilter } from 'src/app/model/postfilter';
 import { Post } from 'src/app/model/post';
+import { SelectionService } from 'src/app/services/selection.service';
 
 @Component({
     selector: 'app-posts',
@@ -19,7 +20,8 @@ export class PostsComponent implements OnInit {
     selection: string;
     sort: string;
 
-    constructor(private route: ActivatedRoute, private service: PostService, store: PostStore) {
+    constructor(private route: ActivatedRoute, private service: PostService,
+        private selectionService: SelectionService, store: PostStore) {
         this.store = store;
     }
 
@@ -43,7 +45,7 @@ export class PostsComponent implements OnInit {
         this.route.queryParamMap.subscribe(params => {
             const oldSelection = this.selection;
             const oldSort = this.sort;
-            this.selection = params.get('selection') === 'all' ? 'all' : 'unread';
+            this.selection = this.selectionService.getOrDefault(params.get('selection'));
             this.sort = params.get('sort') === 'desc' ? 'desc' : 'asc';
 
             if (oldSelection !== this.selection || oldSort !== this.sort) {

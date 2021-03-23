@@ -58,6 +58,9 @@ public class PostDaoImpl implements PostDao {
         if (filter.getSelection() == Selection.UNREAD) {
             queryBuilder.setFilter(StructuredQuery.CompositeFilter.and(
                     getAncestorFilter(filter), StructuredQuery.PropertyFilter.eq("read", false)));
+        } else if (filter.getSelection() == Selection.BOOKMARKED) {
+            queryBuilder.setFilter(StructuredQuery.CompositeFilter.and(
+                    getAncestorFilter(filter), StructuredQuery.PropertyFilter.eq("bookmarked", true)));
         } else {
             queryBuilder.setFilter(getAncestorFilter(filter));
         }

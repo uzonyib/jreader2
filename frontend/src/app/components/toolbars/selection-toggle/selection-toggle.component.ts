@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from 'src/app/services/post.service';
+import { SelectionService } from 'src/app/services/selection.service';
 
 @Component({
     selector: 'app-selection-toggle',
@@ -12,18 +13,21 @@ export class SelectionToggleComponent implements OnInit {
     selection = 'unread';
     loading = false;
 
-    constructor(private router: Router, private route: ActivatedRoute, service: PostService) {
+    constructor(private router: Router, private route: ActivatedRoute,
+        private selectionService: SelectionService, service: PostService) {
         service.isLoading().subscribe(l => this.loading = l);
     }
 
     ngOnInit(): void {
-        this.selection = this.route.snapshot.queryParamMap.get('selection') === 'all' ? 'all' : 'unread';
+        const param = this.route.snapshot.queryParamMap.get('selection');
+        this.selection = this.selectionService.getOrDefault(param);
     }
 
     toggle(): void {
         this.router.navigate([], {
             relativeTo: this.route,
-            queryParams: this.selection === 'all' ? { selection: 'all' } : { selection: null },
+            queryParams: this.selectionService.isNonDefault(this.selection) ?
+                { selection: this.selection } : { selection: null },
             queryParamsHandling: 'merge'
         });
     }

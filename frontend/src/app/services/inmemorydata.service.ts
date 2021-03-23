@@ -135,10 +135,10 @@ export class InMemoryDataService {
         updates.forEach(update => {
             const post = this.posts.find(p => p.groupId === update.groupId && p.subscriptionId == update.subscriptionId
                 && p.uri == update.uri);
-            if (update.read !== null) {
+            if (update.read !== undefined) {
                 post.read = update.read;
             }
-            if (update.bookmarked !== null) {
+            if (update.bookmarked !== undefined) {
                 post.bookmarked = update.bookmarked;
             }
         });
@@ -147,6 +147,9 @@ export class InMemoryDataService {
     private filter(posts: Post[], selection: string): Post[] {
         if (selection === 'unread') {
             return posts.filter(post => !post.read);
+        }
+        if (selection === 'bookmarked') {
+            return posts.filter(post => post.bookmarked);
         }
         return posts;
     }

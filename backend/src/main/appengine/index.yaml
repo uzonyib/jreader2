@@ -27,3 +27,14 @@ indexes:
   - name: "read"
   - name: "publishDate"
     direction: desc
+- kind: "Post"
+  ancestor: yes
+  properties:
+  - name: "bookmarked"
+  - name: "publishDate"
+- kind: "Post"
+  ancestor: yes
+  properties:
+  - name: "bookmarked"
+  - name: "publishDate"
+    direction: desc
