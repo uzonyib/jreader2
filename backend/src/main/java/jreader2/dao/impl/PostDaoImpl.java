@@ -76,13 +76,13 @@ public class PostDaoImpl implements PostDao {
     }
 
     @Override
-    public List<Post> list(Subscription subscription, int postsToKeep) {
+    public List<Post> list(Subscription subscription, int offset) {
         Query<Entity> query = Query.newEntityQueryBuilder()
                 .setKind("Post")
                 .setFilter(StructuredQuery.PropertyFilter.hasAncestor(keyFactory.createSubscriptionKey(
                         subscription.getOwnerEmail(), subscription.getGroupId(), subscription.getId())))
                 .setOrderBy(StructuredQuery.OrderBy.desc("publishDate"))
-                .setOffset(postsToKeep)
+                .setOffset(offset)
                 .build();
         Iterator<Entity> entities = datastore.run(query);
         return toStream(entities)
