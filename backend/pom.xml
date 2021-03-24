@@ -10,6 +10,7 @@
     <properties>
         <maven.compiler.target>11</maven.compiler.target>
         <maven.compiler.source>11</maven.compiler.source>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.boot.version>2.4.1</spring.boot.version>
         <spring.cloud.version>2020.0.0</spring.cloud.version>
         <google.cloud.version>16.2.1</google.cloud.version>
@@ -121,7 +122,9 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
+                <version>3.2.0</version>
                 <executions>
                     <execution>
                         <id>copy-templates</id>

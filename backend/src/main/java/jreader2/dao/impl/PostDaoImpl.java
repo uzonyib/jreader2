@@ -64,7 +64,7 @@ public class PostDaoImpl implements PostDao {
         } else {
             queryBuilder.setFilter(getAncestorFilter(filter));
         }
-        Query query = queryBuilder
+        Query<Entity> query = queryBuilder
                 .setOrderBy(filter.isAscendingOrder() ?
                         StructuredQuery.OrderBy.asc("publishDate") : StructuredQuery.OrderBy.desc("publishDate"))
                 .setLimit(filter.getLimit())
