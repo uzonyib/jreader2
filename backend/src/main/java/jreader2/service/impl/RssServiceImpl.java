@@ -43,7 +43,7 @@ public class RssServiceImpl implements RssService {
                         log.info("Fetched {} entries from {}.", feed.getEntries().size(), url);
                         return Flux.fromIterable(feed.getEntries());
                     } catch (FeedException | IOException e) {
-                        log.error("Failed to fetch {}", e);
+                        log.error("Failed to fetch " + url, e);
                         return Flux.empty();
                     }
                 })

@@ -61,7 +61,8 @@ public class SubscriptionRefreshServiceImpl implements SubscriptionRefreshServic
     private void updateSubscriptions(List<Subscription> subscriptions, ZonedDateTime lastUpdateDate) {
         subscriptions.forEach(subscription -> {
             if (shouldProcessPostWithDateForSubscription(lastUpdateDate, subscription)) {
-                log.info("Subscription of user {} updated as of {}", subscription.getOwnerEmail(), lastUpdateDate);
+                log.info("Subscription {} of user {} updated as of {}",
+                        subscription.getName(), subscription.getOwnerEmail(), lastUpdateDate);
                 subscription.setLastUpdateDate(lastUpdateDate);
                 subscriptionDao.update(subscription);
             }
